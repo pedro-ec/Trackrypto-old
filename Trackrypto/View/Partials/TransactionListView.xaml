@@ -6,7 +6,46 @@
              xmlns:local="clr-namespace:Trackrypto.View.Partials"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Margin="64 24 64 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Lista de Transacciones" 
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}"/>
+            <TextBlock Text="Lista de Transacciones" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" 
+                Margin="8"
+                CornerRadius="4"
+                Background="White"
+                BorderBrush="Gray"
+                BorderThickness="0.7">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="AÑADIR" 
+                            Margin="8"
+                            Foreground="#f0f0f0"/>
+                    <Button Content="AÑADIR" Margin="8"/>
+                    <Button Content="AÑADIR" Margin="8"/>
+                </StackPanel>
+
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

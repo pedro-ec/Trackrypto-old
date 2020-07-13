@@ -13,5 +13,12 @@ namespace Trackrypto
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitializeComponent();
+
+            StartupUri = new Uri("View/MainWindow.xaml", UriKind.Relative);
+            Run();
+        }
     }
 }

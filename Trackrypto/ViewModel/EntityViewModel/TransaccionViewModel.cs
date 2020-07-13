@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trackrypto.ViewModel.EntityViewModel
 {
-    class TransaccionViewModel
+    public class TransaccionViewModel
     {
     }
 }

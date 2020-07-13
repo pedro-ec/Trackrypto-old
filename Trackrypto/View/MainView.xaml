@@ -16,11 +16,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            
-        </StackPanel>
-        
+        <partials:Header Grid.Row="0"/>
+
         <!--Content-->
-        <partials:TransactionListView Grid.Row="1" Visibility="{Binding ShowTransactionList, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Grid Grid.Row="1" Background="#f0f0f0">
+            <partials:TransactionListView Visibility="{Binding ShowTransactionList, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <partials:SummaryView Visibility="{Binding ShowSummary, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </Grid>
     </Grid>
 </UserControl>

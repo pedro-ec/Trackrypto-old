@@ -42,10 +42,10 @@ namespace Trackrypto.ViewModel
         }
 
         #region comands
-        public RelayCommand<string> ToggleViewCommmand { get; private set; }
+        public RelayCommand<string> ToggleViewCommand { get; private set; }
         private void WireCommands()
         {
-            ToggleViewCommmand = new RelayCommand<string>((view) => ToggleView(view));
+            ToggleViewCommand = new RelayCommand<string>((view) => ToggleView(view));
         }
         #endregion
 

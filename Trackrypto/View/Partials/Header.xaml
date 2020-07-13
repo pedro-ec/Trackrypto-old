@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Trackrypto.View.Partials.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Trackrypto.View.Partials"
+             mc:Ignorable="d">
+    <StackPanel Margin="48 0">
+        <StackPanel Orientation="Horizontal" Margin="8">
+            <TextBlock Text="TRACKRYPTO" 
+                   Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                   Margin="4"/>
+            <Button Content="Resumen" 
+                    Command="{Binding ToggleViewCommand}" 
+                    CommandParameter="Summary" 
+                    Style="{StaticResource MaterialDesignFlatButton}" 
+                    Margin="8" VerticalAlignment="Bottom"/>
+            <Button Content="Transacciones" 
+                    Command="{Binding ToggleViewCommand}" 
+                    CommandParameter="TransactionList" 
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Margin="8" VerticalAlignment="Bottom"/>
+        </StackPanel>
+
+        <StackPanel Background="LawnGreen" Height="4"/>
+    </StackPanel>
+</UserControl>
