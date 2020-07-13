@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trackrypto
+namespace Trackrypto.View.Partials
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TransactionListView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TransactionListView : UserControl
     {
-        public MainWindow()
+        public TransactionListView()
         {
             InitializeComponent();
         }
