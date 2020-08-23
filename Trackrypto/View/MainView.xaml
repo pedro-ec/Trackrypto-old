@@ -16,12 +16,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!--Header-->
         <partials:Header Grid.Row="0"/>
 
         <!--Content-->
         <Grid Grid.Row="1" Background="#f0f0f0">
-            <partials:TransactionListView Visibility="{Binding ShowTransactionList, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-            <partials:SummaryView Visibility="{Binding ShowSummary, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <ContentControl Content="{Binding CurrentPageViewModel}"/>
         </Grid>
     </Grid>
 </UserControl>

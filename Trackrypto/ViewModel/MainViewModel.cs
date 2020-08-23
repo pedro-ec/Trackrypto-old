@@ -7,39 +7,42 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Trackrypto.ViewModel.Navigation;
+using Trackrypto.ViewModel.ViewViewModel;
 
 namespace Trackrypto.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
         #region private
-        private bool showSummary;
-        private bool showTransactionList;
+        private IPageViewModel currentPageViewModel;
+        private Dictionary<string, IPageViewModel> pageViewModels = new Dictionary<string, IPageViewModel>();
         #endregion
 
-        public bool ShowSummary
+
+        public Dictionary<string, IPageViewModel> PageViewModels => pageViewModels;
+
+        public IPageViewModel CurrentPageViewModel
         {
-            get => showSummary;
+            get
+            {
+                return currentPageViewModel;
+            }
             set
             {
-                showSummary = value;
+                currentPageViewModel = value;
                 RaisePropertyChanged();
             }
         }
-        public bool ShowTransactionList
-        {
-            get => showTransactionList;
-            set
-            {
-                showTransactionList = value;
-                RaisePropertyChanged();
-            }
-        }
+
 
         public MainViewModel()
         {
+            AddViewModels();
+
             WireCommands();
         }
+
 
         #region comands
         public RelayCommand<string> ToggleViewCommand { get; private set; }
@@ -49,10 +52,21 @@ namespace Trackrypto.ViewModel
         }
         #endregion
 
+
+        #region navigation
+        private void AddViewModels()
+        {
+            pageViewModels.Add("Summary", new SummaryViewModel());
+            pageViewModels.Add("TransactionList", new TransactionListViewModel());
+
+            CurrentPageViewModel = PageViewModels["Summary"];
+        }
+
         private void ToggleView(string view)
         {
-            ShowSummary = string.Equals(view, "Summary");
-            ShowTransactionList = string.Equals(view, "TransactionList");
+            if (PageViewModels.ContainsKey(view))
+                CurrentPageViewModel = PageViewModels[view];
         }
+        #endregion
     }
 }

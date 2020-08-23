@@ -37,13 +37,19 @@
                     <Button Content="AÑADIR" Margin="8"/>
                 </StackPanel>
 
-                <Grid Margin="8">
+                <Grid Margin="8" Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    
-                    
+
+                    <ListView ItemsSource="{Binding TransaccionesViewSource.View}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tipo" Width="60" DisplayMemberBinding="{Binding Tipo}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </Grid>
         </Border>

@@ -6,13 +6,15 @@ namespace Trackrypto.Model.Entities
     {
         public int Id { get; set; }
         public string Tipo { get; set; }
-        public string Origen { get; set; }
-        public float Origen_Valor { get; set; }
-        public string Origen_Divisa { get; set; }
-        public string Destino { get; set; }
-        public float Destino_Valor { get; set; }
-        public string Destino_Divisa { get; set; }
-        public DateTime Fecha { get; set; }
+        public string Subtipo { get; set; }
+        public string Exchange { get; set; }
+        public float Cantidad_Compra { get; set; }
+        public string Divisa_Compra { get; set; }
+        public float Cantidad_Venta { get; set; }
+        public string Divisa_Venta { get; set; }
+        public float Cantidad_Comision { get; set; }
+        public string Divisa_Comision { get; set; }
         public string Comentarios { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }
