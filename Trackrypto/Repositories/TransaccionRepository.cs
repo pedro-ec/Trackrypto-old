@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using HMY.Infrastructure.AsyncResponse;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,7 +16,7 @@ namespace Trackrypto.Repositories
 {
     public static class TransaccionRepository
     {
-        static IDbConnection db = new SqlConnection("Server=localhost;Database=trackrypto;Uid=trackrypto_user;Pwd=trackrypto_password;");
+        static IDbConnection db = new MySqlConnection("Server=localhost;Database=trackrypto;Uid=trackrypto_user;Pwd=trackrypto_password;");
         
         public static IResponse<Transaccion[]> GetTransacciones()
         {

@@ -65,7 +65,11 @@ namespace Trackrypto.ViewModel
         private void ToggleView(string view)
         {
             if (PageViewModels.ContainsKey(view))
-                CurrentPageViewModel = PageViewModels[view];
+            {
+                var viewModel = PageViewModels[view];
+                viewModel.OnNavigate();
+                CurrentPageViewModel = viewModel;
+            }
         }
         #endregion
     }

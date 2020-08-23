@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Trackrypto.EntryPoint</StartupObject>
@@ -68,7 +70,6 @@
     </Compile>
     <Compile Include="ViewModel\Factories\TransaccionFactory.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\Messenger\UpdateMessage.cs" />
     <Compile Include="ViewModel\Navigation\IPageViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\NewTransaccionViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\SummaryViewModel.cs" />
@@ -147,11 +148,15 @@
     <PackageReference Include="MvvmLightLibs">
       <Version>5.4.1.1</Version>
     </PackageReference>
+    <PackageReference Include="MySql.Data">
+      <Version>8.0.21</Version>
+    </PackageReference>
     <PackageReference Include="Splat">
       <Version>9.5.20</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModel\Messenger\" />
     <Folder Include="View\Converters\" />
     <Folder Include="View\Dialogs\" />
   </ItemGroup>

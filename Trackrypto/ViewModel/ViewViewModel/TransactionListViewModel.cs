@@ -1,11 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
 using HMY.Helpers.Collections;
+using HMY.Infrastructure.AsyncResponse;
+using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using Trackrypto.Repositories;
 using Trackrypto.ViewModel.EntityViewModel;
 using Trackrypto.ViewModel.Navigation;
 
@@ -54,9 +57,18 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #endregion
 
+        public void OnNavigate()
+        {
+            Update();
+        }
+
         public void Update()
         {
+            var response = TransaccionRepository.GetTransacciones();
+            if (response.Type != ResponseType.Ok) return;
+            var newTransacciones = response.Data;
 
+            Transacciones.ReplaceRange(newTransacciones.Select(x => x.Adapt<TransaccionViewModel>()));
         }
     }
 }

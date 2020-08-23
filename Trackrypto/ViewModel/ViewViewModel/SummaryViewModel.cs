@@ -10,5 +10,9 @@ namespace Trackrypto.ViewModel.ViewViewModel
 {
     public class SummaryViewModel : ViewModelBase, IPageViewModel
     {
+        public void OnNavigate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
