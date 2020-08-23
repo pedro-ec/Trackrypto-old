@@ -40,6 +40,22 @@ namespace Trackrypto.Repositories
             return Response<Transaccion>.Ok(transaccion);
         }
 
+        public static IResponse BulkInsertTransaccion(Transaccion[] transacciones)
+        {
+            var sql = @"
+                insert into transaccion
+                    (Id, Tipo, Subtipo, Exchange, Cantidad_Compra, Divisa_Compra, Cantidad_Venta, Divisa_Venta, Cantidad_Comision, Divisa_Comision, Comentarios, Fecha) 
+                values 
+                    (@Id, @Tipo, @Subtipo, @Exchange, @Cantidad_Compra, @Divisa_Compra, @Cantidad_Venta, @Divisa_Venta, @Cantidad_Comision, @Divisa_Comision, @Comentarios, @Fecha)";
+
+            db.Open();
+            var insertedRows = db.Execute(sql, transacciones);
+            db.Close();
+
+            if (insertedRows != transacciones.Length) return Response.Warning();
+            return Response.Ok();
+        }
+
         public static IResponse EditTransaccion(Transaccion transaccion)
         {
             db.Open();

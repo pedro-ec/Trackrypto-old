@@ -31,11 +31,16 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="AÑADIR" 
+                    <Button Content="Añadir" 
                             Margin="8"
                             Foreground="#f0f0f0"
                             Command="{Binding AddTransaccionCommand}"/>
-                    <Button Content="AÑADIR" Margin="8"/>
+                    
+                    <Button Content="Importar" 
+                            Margin="8"
+                            Foreground="#f0f0f0"
+                            Command="{Binding LoadFileCommand}"/>
+                    
                     <Button Content="AÑADIR" Margin="8"/>
                 </StackPanel>
 

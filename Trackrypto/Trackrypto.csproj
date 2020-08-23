@@ -63,6 +63,7 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Model\Domain.cs" />
     <Compile Include="Repositories\TransaccionRepository.cs" />
+    <Compile Include="Utils\FileLoader.cs" />
     <Compile Include="ViewModel\EntityViewModel\TransaccionViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -80,6 +81,9 @@
     </Compile>
     <Compile Include="View\Dialogs\EditTransaccionDialog.xaml.cs">
       <DependentUpon>EditTransaccionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\LoadFileDialog.xaml.cs">
+      <DependentUpon>LoadFileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -169,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Dialogs\EditTransaccionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\LoadFileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Trackrypto.Model.Entities;
 using Trackrypto.Repositories;
+using Trackrypto.Utils;
 using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
 using Trackrypto.ViewModel.Navigation;
@@ -52,9 +53,11 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
+        public ICommand LoadFileCommand { get; private set; }
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
+            LoadFileCommand = new RelayCommand(() => LoadFile());
         }
         #endregion
 
@@ -90,6 +93,11 @@ namespace Trackrypto.ViewModel.ViewViewModel
                     TransaccionRepository.InsertTransaccion(transaccion);
                     Update();
                 });
+        }
+
+        private void LoadFile()
+        {
+            FileLoader.LoadCryptoComCsv("");
         }
     }
 }
