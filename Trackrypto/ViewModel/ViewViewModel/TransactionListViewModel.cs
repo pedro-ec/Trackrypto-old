@@ -1,14 +1,19 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using HMY.Helpers.Collections;
 using HMY.Infrastructure.AsyncResponse;
 using Mapster;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using System.Windows.Input;
+using Trackrypto.Model.Entities;
 using Trackrypto.Repositories;
+using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
 using Trackrypto.ViewModel.Navigation;
 
@@ -18,7 +23,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
     {
         #region private
         private int selectedPage;
-        private int pageSize;
+        //private int pageSize;
         #endregion
 
 
@@ -46,10 +51,10 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #endregion
 
         #region commands
-
+        public ICommand AddTransaccionCommand { get; private set; }
         private void WireCommands()
         {
-
+            AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
         }
         #endregion
 
@@ -69,6 +74,22 @@ namespace Trackrypto.ViewModel.ViewViewModel
             var newTransacciones = response.Data;
 
             Transacciones.ReplaceRange(newTransacciones.Select(x => x.Adapt<TransaccionViewModel>()));
+        }
+
+        private void AddTransaccion()
+        {
+            var context = new EditTransaccionDialogViewModel();
+            var view = new AddTransaccionDialog { DataContext = context };
+
+            DialogHost.Show(view, "RootDialog", null,
+                (s, e) =>
+                {
+                    if ((bool)e.Parameter == false) return;
+
+                    Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
+                    TransaccionRepository.InsertTransaccion(transaccion);
+                    Update();
+                });
         }
     }
 }

@@ -71,11 +71,15 @@
     <Compile Include="ViewModel\Factories\TransaccionFactory.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Navigation\IPageViewModel.cs" />
+    <Compile Include="ViewModel\ViewViewModel\EditTransaccionDialogViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\NewTransaccionViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\SummaryViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\TransactionListViewModel.cs" />
     <Compile Include="View\Controls\ExtendedDataGrid.xaml.cs">
       <DependentUpon>ExtendedDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialogs\EditTransaccionDialog.xaml.cs">
+      <DependentUpon>EditTransaccionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -158,10 +162,13 @@
   <ItemGroup>
     <Folder Include="ViewModel\Messenger\" />
     <Folder Include="View\Converters\" />
-    <Folder Include="View\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\Controls\ExtendedDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialogs\EditTransaccionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
