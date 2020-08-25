@@ -15,7 +15,7 @@
         <StackPanel Orientation="Horizontal" Margin="32 0 32 8">
             <TextBox Width="148"
                      Margin="16 0"
-                     Text="{Binding Transaccion.Lugar}"
+                     Text="{Binding Transaccion.Exchange}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:HintAssist.Hint="Lugar"/>
             
@@ -112,7 +112,8 @@
             <Button Content="Aceptar" 
                     Command="materialDesign:DialogHost.CloseDialogCommand"  
                     Margin="8" 
-                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Foreground="#f0f0f0">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>

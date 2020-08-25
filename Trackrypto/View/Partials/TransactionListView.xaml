@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Trackrypto.View.Partials"
+             xmlns:local="clr-namespace:Trackrypto.View.Partials" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -31,17 +31,72 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Añadir" 
-                            Margin="8"
+                    <Button Margin="16 16 8 0" 
+                            Style="{StaticResource MaterialDesignFloatingActionButton}"
                             Foreground="#f0f0f0"
-                            Command="{Binding AddTransaccionCommand}"/>
-                    
-                    <Button Content="Importar" 
-                            Margin="8"
-                            Foreground="#f0f0f0"
-                            Command="{Binding LoadFileCommand}"/>
-                    
-                    <Button Content="AÑADIR" Margin="8"/>
+                            Command="{Binding AddTransaccionCommand}">
+                        <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+                    </Button>
+
+
+                    <materialDesign:PopupBox Margin="16 16 8 0"
+                                             Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                             Foreground="#f0f0f0" 
+                                             PopupMode="MouseOver"
+                                             PlacementMode="BottomAndAlignCentres">
+
+                        <materialDesign:PopupBox.ToggleContent>
+                                <materialDesign:PackIcon Kind="FileImportOutline" Width="24" Height="24" />
+                        </materialDesign:PopupBox.ToggleContent>
+
+                        <materialDesign:PopupBox.ToggleCheckedContent>
+                            <materialDesign:PackIcon Kind="FileImport" Width="24" Height="24" />
+                        </materialDesign:PopupBox.ToggleCheckedContent>
+                        <StackPanel>
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="White" Opacity="0.8"/>
+                            </StackPanel.Background>
+                            <Button Content="Crypto.com CSV" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportCryptoComCsvCommand}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                    <materialDesign:PopupBox Margin="16 16 8 0" 
+                                             Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                             Foreground="#f0f0f0"
+                                             PopupMode="MouseOver"
+                                             PlacementMode="BottomAndAlignCentres">
+
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="Api" Width="24" Height="24" />
+                        </materialDesign:PopupBox.ToggleContent>
+
+                        <materialDesign:PopupBox.ToggleCheckedContent>
+                            <materialDesign:PackIcon Kind="CloudDownload" Width="24" Height="24" />
+                        </materialDesign:PopupBox.ToggleCheckedContent>
+                        <StackPanel>
+                            <StackPanel.Background>
+                                <SolidColorBrush Color="White" Opacity="0.8"/>
+                            </StackPanel.Background>
+                            <Button Content="Crypto.com Exchange" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
                 </StackPanel>
 
                 <Grid Margin="8" Grid.Row="1">
@@ -53,7 +108,17 @@
                     <ListView ItemsSource="{Binding TransaccionesViewSource.View}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Tipo" Width="60" DisplayMemberBinding="{Binding Tipo}"/>
+                                <GridViewColumn Header="Tipo" Width="80" DisplayMemberBinding="{Binding Tipo}"/>
+                                <GridViewColumn Header="Subtipo" Width="100" DisplayMemberBinding="{Binding Subtipo}"/>
+                                <GridViewColumn Header="Exchange" Width="160" DisplayMemberBinding="{Binding Exchange}"/>
+                                <GridViewColumn Header="Compra" Width="100" DisplayMemberBinding="{Binding Cantidad_Compra}"/>
+                                <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Compra}"/>
+                                <GridViewColumn Header="Venta" Width="100" DisplayMemberBinding="{Binding Cantidad_Venta}"/>
+                                <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Venta}"/>
+                                <GridViewColumn Header="Comisión" Width="100" DisplayMemberBinding="{Binding Cantidad_Comision}"/>
+                                <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Comision}"/>
+                                <GridViewColumn Header="Comentarios" DisplayMemberBinding="{Binding Comentarios}"/>
+                                <GridViewColumn Header="Fecha" Width="140" DisplayMemberBinding="{Binding Fecha}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

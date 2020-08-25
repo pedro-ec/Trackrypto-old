@@ -4,8 +4,10 @@ using HMY.Helpers.Collections;
 using HMY.Infrastructure.AsyncResponse;
 using Mapster;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,10 +56,12 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
         public ICommand LoadFileCommand { get; private set; }
+        public ICommand ImportCryptoComCsvCommand { get; private set; }
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
             LoadFileCommand = new RelayCommand(() => LoadFile());
+            ImportCryptoComCsvCommand = new RelayCommand(() => ImportCryptoComCsv());
         }
         #endregion
 
@@ -99,5 +103,17 @@ namespace Trackrypto.ViewModel.ViewViewModel
         {
             FileLoader.LoadCryptoComCsv("");
         }
+
+        #region imports
+        private void ImportCryptoComCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var data = File.ReadAllText(openFileDialog.FileName);
+                FileLoader.LoadCryptoComCsv(data);
+            }
+        }
+        #endregion
     }
 }

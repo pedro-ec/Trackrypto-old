@@ -12,7 +12,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
     {
         public void OnNavigate()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
