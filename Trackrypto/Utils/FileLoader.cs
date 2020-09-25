@@ -1,23 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trackrypto.Model.Entities;
+using Trackrypto.Model.Factories;
+using Trackrypto.Model.Factories.CryptoComApp;
 using Trackrypto.Repositories;
 
 namespace Trackrypto.Utils
 {
     public static class FileLoader
     {
-        public static void LoadCryptoComCsv(string file)
+        public static void LoadCryptoComCsv(string filename)
         {
-            Transaccion[] transacciones = new Transaccion[]
+            var reader = new StreamReader(File.OpenRead(filename));
+            List<Transaccion> transacciones = new List<Transaccion>();
+            var _ = reader.ReadLine();
+            while (!reader.EndOfStream)
             {
-                new Transaccion {Comentarios = "trans1"},
-                new Transaccion {Comentarios = "trans2"}
-            };
-            TransaccionRepository.BulkInsertTransaccion(transacciones);
+                var line = reader.ReadLine();
+                var transaccion = CryptoComTransaccionFactory.FromAppCsv(line);
+                if (transaccion == null)
+                {
+                    // error
+                    Debug.WriteLine("transaccion = null");
+                    continue;
+                }
+                transacciones.Add(transaccion);
+            }
+            TransaccionRepository.BulkInsertTransaccion(transacciones.ToArray());
         }
     }
 }

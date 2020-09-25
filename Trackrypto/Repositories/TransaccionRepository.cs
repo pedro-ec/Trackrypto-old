@@ -37,6 +37,7 @@ namespace Trackrypto.Repositories
             db.Close();
 
             transaccion.Id = (int)id;
+
             return Response<Transaccion>.Ok(transaccion);
         }
 
@@ -53,6 +54,7 @@ namespace Trackrypto.Repositories
             db.Close();
 
             if (insertedRows != transacciones.Length) return Response.Warning();
+
             return Response.Ok();
         }
 
@@ -63,6 +65,7 @@ namespace Trackrypto.Repositories
             db.Close();
 
             if (updated == false) return Response.Error();
+
             return Response.Ok();
         }
 
@@ -74,6 +77,7 @@ namespace Trackrypto.Repositories
             db.Close();
 
             if (updated == false) return Response.Error();
+
             return Response.Ok();
         }
     }

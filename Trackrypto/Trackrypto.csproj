@@ -62,6 +62,8 @@
     </ApplicationDefinition>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Model\Domain.cs" />
+    <Compile Include="Model\Factories\CryptoComApp\TransaccionFactory.cs" />
+    <Compile Include="Model\Factories\CryptoComApp\Utils\CsvRow.cs" />
     <Compile Include="Repositories\TransaccionRepository.cs" />
     <Compile Include="Utils\FileLoader.cs" />
     <Compile Include="ViewModel\EntityViewModel\TransaccionViewModel.cs" />

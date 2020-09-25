@@ -20,5 +20,7 @@ namespace Trackrypto.ViewModel.EntityViewModel
         public string Divisa_Comision { get; set; }
         public string Comentarios { get; set; }
         public DateTime Fecha { get; set; }
+        public bool Alerta { get; set; }
+        public string Mensaje_Alerta { get; set; }
     }
 }

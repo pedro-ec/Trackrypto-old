@@ -110,8 +110,9 @@ namespace Trackrypto.ViewModel.ViewViewModel
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                var data = File.ReadAllText(openFileDialog.FileName);
-                FileLoader.LoadCryptoComCsv(data);
+                // Check .csv
+                FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
+                Update();
             }
         }
         #endregion
