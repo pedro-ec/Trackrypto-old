@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="ViewModel\Factories\TransaccionFactory.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\Messenger\RemoveTransactionMessage.cs" />
     <Compile Include="ViewModel\Navigation\IPageViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\EditTransaccionDialogViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\SummaryViewModel.cs" />
@@ -167,7 +168,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModel\Messenger\" />
     <Folder Include="View\Converters\" />
   </ItemGroup>
   <ItemGroup>

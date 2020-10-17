@@ -1,14 +1,16 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Trackrypto.ViewModel.Messenger;
 
 namespace Trackrypto.ViewModel.EntityViewModel
 {
     public class TransaccionViewModel
     {
-        public int Id { get; set; }
         public string Tipo { get; set; }
         public string Subtipo { get; set; }
         public string Exchange { get; set; }
@@ -22,5 +24,28 @@ namespace Trackrypto.ViewModel.EntityViewModel
         public DateTime Fecha { get; set; }
         public bool Alerta { get; set; }
         public string Mensaje_Alerta { get; set; }
+
+
+        public TransaccionViewModel()
+        {
+            WireCommands();
+        }
+
+
+        #region commands
+        public ICommand DeleteCommand { get; private set; }
+        private void WireCommands()
+        {
+            DeleteCommand = new RelayCommand(() => Delete());
+        }
+        #endregion
+
+
+        private void Delete()
+        {
+            var msg = new RemoveTransactionMessage { Transaccion = this };
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(msg);
+        }
     }
+
 }

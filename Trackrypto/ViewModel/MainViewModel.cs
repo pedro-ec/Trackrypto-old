@@ -16,6 +16,7 @@ using Trackrypto.Helpers;
 using Trackrypto.Model;
 using Trackrypto.Model.Entities;
 using Trackrypto.ViewModel.EntityViewModel;
+using Trackrypto.ViewModel.Messenger;
 using Trackrypto.ViewModel.Navigation;
 using Trackrypto.ViewModel.ViewViewModel;
 
@@ -24,7 +25,6 @@ namespace Trackrypto.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region private
-        //private Domain domain;
         private IPageViewModel currentPageViewModel;
 
         private string path;
@@ -48,10 +48,10 @@ namespace Trackrypto.ViewModel
 
         public MainViewModel()
         {
-            //domain = new Domain();
             transacciones = new RangeObservableCollection<TransaccionViewModel>();
             path = "";
             WireCommands();
+            RegisterMessenger();
         }
 
 
@@ -75,6 +75,15 @@ namespace Trackrypto.ViewModel
         #endregion
 
 
+        #region messenger
+        private void RegisterMessenger()
+        {
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<RemoveTransactionMessage>(this,
+                (action) => RemoveTransaccion(action.Transaccion));
+        }
+        #endregion
+
+
         #region navigation
         private void GoToSummary()
         {
@@ -84,11 +93,17 @@ namespace Trackrypto.ViewModel
         private void GoToTransactionList()
         {
             var viewModel = new TransactionListViewModel(transacciones);
-            //viewModel.Transacciones.AddRange(domain.Transacciones.Select(x => x.Adapt<TransaccionViewModel>()));
             CurrentPageViewModel = viewModel;
         }
 
         #endregion
+
+
+        private void RemoveTransaccion(TransaccionViewModel transaccion)
+        {
+            transacciones.Remove(transaccion);
+        }
+
 
         #region file manage
 

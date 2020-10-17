@@ -110,6 +110,19 @@
                                 <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Comision}"/>
                                 <GridViewColumn Header="Comentarios" DisplayMemberBinding="{Binding Comentarios}"/>
                                 <GridViewColumn Header="Fecha" Width="140" DisplayMemberBinding="{Binding Fecha}"/>
+                                <GridViewColumn Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                                    Command="{Binding DeleteCommand}">
+                                                <Button.Content>
+                                                    <materialDesign:PackIcon Kind="Delete"
+                                                                             Foreground="Red"/>
+                                                </Button.Content>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
