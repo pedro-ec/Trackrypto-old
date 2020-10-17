@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 using Trackrypto.Model.Entities;
 using Trackrypto.Model.Factories;
 using Trackrypto.Model.Factories.CryptoComApp;
-using Trackrypto.Repositories;
 
 namespace Trackrypto.Utils
 {
     public static class FileLoader
     {
-        public static void LoadCryptoComCsv(string filename)
+        public static List<Transaccion> LoadCryptoComCsv(string filename)
         {
             var reader = new StreamReader(File.OpenRead(filename));
             List<Transaccion> transacciones = new List<Transaccion>();
@@ -31,7 +30,8 @@ namespace Trackrypto.Utils
                 }
                 transacciones.Add(transaccion);
             }
-            TransaccionRepository.BulkInsertTransaccion(transacciones.ToArray());
+            //TransaccionRepository.BulkInsertTransaccion(transacciones.ToArray());
+            return transacciones;
         }
     }
 }

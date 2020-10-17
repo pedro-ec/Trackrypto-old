@@ -29,7 +29,21 @@
 
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
-            <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="True" x:Name="MenuToggleButton" Height="20" Width="20"/>
+            <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="True" x:Name="MenuToggleButton" Height="20" Width="20"/>-->
+            <materialDesign:PopupBox StaysOpen="True">
+                <materialDesign:PopupBox.ToggleContent>
+                    <materialDesign:PackIcon Kind="HamburgerMenu" Foreground="White"/>
+                </materialDesign:PopupBox.ToggleContent>
+                
+                <StackPanel>
+                    <Button Content="Abrir"
+                            Command="{Binding OpenCommand}"/>
+                    <Button Content="Guardar"
+                            Command="{Binding SaveCommand}"/>
+                    <Button Content="Guardar Como"
+                            Command="{Binding SaveAsCommand}"/>
+                </StackPanel>
+            </materialDesign:PopupBox>
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
 

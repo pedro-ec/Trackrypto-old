@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 using Trackrypto.Model.Entities;
-using Trackrypto.Repositories;
 using Trackrypto.Utils;
 using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
@@ -44,9 +43,9 @@ namespace Trackrypto.ViewModel.ViewViewModel
         public CollectionViewSource TransaccionesViewSource { get; set; }
 
         #region constructor
-        public TransactionListViewModel()
+        public TransactionListViewModel(RangeObservableCollection<TransaccionViewModel> transacciones = null)
         {
-            Transacciones = new RangeObservableCollection<TransaccionViewModel>();
+            Transacciones = transacciones ?? new RangeObservableCollection<TransaccionViewModel>();
             TransaccionesViewSource = new CollectionViewSource { Source = Transacciones };
 
             WireCommands();
@@ -69,19 +68,19 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #endregion
 
-        public void OnNavigate()
-        {
-            Update();
-        }
+        //public void OnNavigate()
+        //{
+        //    Update();
+        //}
 
-        public void Update()
-        {
-            var response = TransaccionRepository.GetTransacciones();
-            if (response.Type != ResponseType.Ok) return;
-            var newTransacciones = response.Data;
+        //public void Update()
+        //{
+        //    var response = TransaccionRepository.GetTransacciones();
+        //    if (response.Type != ResponseType.Ok) return;
+        //    var newTransacciones = response.Data;
 
-            Transacciones.ReplaceRange(newTransacciones.Select(x => x.Adapt<TransaccionViewModel>()));
-        }
+        //    Transacciones.ReplaceRange(newTransacciones.Select(x => x.Adapt<TransaccionViewModel>()));
+        //}
 
         private void AddTransaccion()
         {
@@ -92,10 +91,10 @@ namespace Trackrypto.ViewModel.ViewViewModel
                 (s, e) =>
                 {
                     if ((bool)e.Parameter == false) return;
-
-                    Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
-                    TransaccionRepository.InsertTransaccion(transaccion);
-                    Update();
+                    Transacciones.Add(context.Transaccion);
+                    //Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
+                    //TransaccionRepository.InsertTransaccion(transaccion);
+                    //Update();
                 });
         }
 
@@ -108,13 +107,23 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private void ImportCryptoComCsv()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV (*.csv) | *.csv";
             if (openFileDialog.ShowDialog() == true)
             {
-                // Check .csv
-                FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
-                Update();
+                var newTransacciones = FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                Transacciones.AddRange(newTransacciones.Select(transaccion => transaccion.Adapt<TransaccionViewModel>()));
             }
         }
+
+
+
+        public void OnNavigate()
+        {
+            return;
+        }
         #endregion
+
+
     }
 }

@@ -5,21 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Trackrypto.View.Partials"
              mc:Ignorable="d">
+    
     <StackPanel Margin="32 0">
-        <StackPanel Orientation="Horizontal" Margin="8">
+        <StackPanel Orientation="Horizontal">
             <TextBlock Text="TRACKRYPTO" 
                    Style="{StaticResource MaterialDesignHeadline3TextBlock}"
                    Margin="4"/>
             
             <Button Content="Resumen" 
-                    Command="{Binding ToggleViewCommand}" 
-                    CommandParameter="Summary" 
+                    Command="{Binding GoToSummaryCommand}" 
                     Style="{StaticResource MaterialDesignFlatButton}" 
                     Margin="8" VerticalAlignment="Bottom"/>
 
             <Button Content="Transacciones" 
-                    Command="{Binding ToggleViewCommand}" 
-                    CommandParameter="TransactionList" 
+                    Command="{Binding GoToTransactionListCommand}" 
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Margin="8" VerticalAlignment="Bottom"/>
         </StackPanel>

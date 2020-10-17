@@ -1,12 +1,21 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using HMY.Helpers.Collections;
+using HMY.Infrastructure.AsyncResponse;
+using Mapster;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Trackrypto.Helpers;
+using Trackrypto.Model;
+using Trackrypto.Model.Entities;
+using Trackrypto.ViewModel.EntityViewModel;
 using Trackrypto.ViewModel.Navigation;
 using Trackrypto.ViewModel.ViewViewModel;
 
@@ -15,12 +24,13 @@ namespace Trackrypto.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region private
+        //private Domain domain;
         private IPageViewModel currentPageViewModel;
-        private Dictionary<string, IPageViewModel> pageViewModels = new Dictionary<string, IPageViewModel>();
+
+        private string path;
+
+        private RangeObservableCollection<TransaccionViewModel> transacciones;
         #endregion
-
-
-        public Dictionary<string, IPageViewModel> PageViewModels => pageViewModels;
 
         public IPageViewModel CurrentPageViewModel
         {
@@ -38,38 +48,100 @@ namespace Trackrypto.ViewModel
 
         public MainViewModel()
         {
-            AddViewModels();
-
+            //domain = new Domain();
+            transacciones = new RangeObservableCollection<TransaccionViewModel>();
+            path = "";
             WireCommands();
         }
 
 
         #region comands
-        public RelayCommand<string> ToggleViewCommand { get; private set; }
+        public ICommand OpenCommand { get; private set; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand SaveAsCommand { get; private set; }
+
+        public ICommand GoToSummaryCommand { get; private set; }
+        public ICommand GoToTransactionListCommand { get; private set; }
+
         private void WireCommands()
         {
-            ToggleViewCommand = new RelayCommand<string>((view) => ToggleView(view));
+            OpenCommand = new RelayCommand(() => OpenFile());
+            SaveCommand = new RelayCommand(() => SaveTransactions());
+            SaveAsCommand = new RelayCommand(() => SaveTransactions(true));
+
+            GoToSummaryCommand = new RelayCommand(() => GoToSummary());
+            GoToTransactionListCommand = new RelayCommand(() => GoToTransactionList());
         }
         #endregion
 
 
         #region navigation
-        private void AddViewModels()
+        private void GoToSummary()
         {
-            pageViewModels.Add("Summary", new SummaryViewModel());
-            pageViewModels.Add("TransactionList", new TransactionListViewModel());
-
-            CurrentPageViewModel = PageViewModels["Summary"];
+            var viewModel = new SummaryViewModel();
         }
 
-        private void ToggleView(string view)
+        private void GoToTransactionList()
         {
-            if (PageViewModels.ContainsKey(view))
+            var viewModel = new TransactionListViewModel(transacciones);
+            //viewModel.Transacciones.AddRange(domain.Transacciones.Select(x => x.Adapt<TransaccionViewModel>()));
+            CurrentPageViewModel = viewModel;
+        }
+
+        #endregion
+
+        #region file manage
+
+        private void SaveTransactions(bool saveAs = false)
+        {
+            if ((saveAs == true) || string.IsNullOrWhiteSpace(path))
             {
-                var viewModel = PageViewModels[view];
-                viewModel.OnNavigate();
-                CurrentPageViewModel = viewModel;
+                bool selected = SelectSavePath();
+                if (selected == false) return;
             }
+
+            Transaccion[] transaccionesModel = transacciones.Select(x => x.Adapt<Transaccion>()).ToArray();
+            TransactionsFileManager.SaveTransacciones(transaccionesModel, path);
+            // Pasar a sin cambios
+        }
+
+
+        private void OpenFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON (.json)|*.json";
+            if (openFileDialog.ShowDialog() == false) return;
+
+            path = openFileDialog.FileName;
+            var response = TransactionsFileManager.GetTransacciones(path);
+            if (response.Type != ResponseType.Ok)
+            {
+                // error
+                return;
+            }
+
+            var newTransacciones = response.Data.Select(transaccion => transaccion.Adapt<TransaccionViewModel>());
+            transacciones.ReplaceRange(newTransacciones);
+        }
+
+
+        private bool SelectSavePath()
+        {
+            var dialog = new SaveFileDialog
+            {
+                FileName = "Transacciones",
+                DefaultExt = ".json",
+                Filter = "JSON (.json)|*.json"
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == true)
+            {
+                path = dialog.FileName;
+                return true;
+            }
+
+            return false;
         }
         #endregion
     }
