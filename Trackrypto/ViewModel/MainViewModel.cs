@@ -34,10 +34,7 @@ namespace Trackrypto.ViewModel
 
         public IPageViewModel CurrentPageViewModel
         {
-            get
-            {
-                return currentPageViewModel;
-            }
+            get => currentPageViewModel;
             set
             {
                 currentPageViewModel = value;
@@ -46,10 +43,21 @@ namespace Trackrypto.ViewModel
         }
 
 
+        public string Path
+        {
+            get => path;
+            set
+            {
+                path = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public MainViewModel()
         {
             transacciones = new RangeObservableCollection<TransaccionViewModel>();
-            path = "";
+            Path = "";
             WireCommands();
             RegisterMessenger();
         }
@@ -109,14 +117,14 @@ namespace Trackrypto.ViewModel
 
         private void SaveTransactions(bool saveAs = false)
         {
-            if ((saveAs == true) || string.IsNullOrWhiteSpace(path))
+            if ((saveAs == true) || string.IsNullOrWhiteSpace(Path))
             {
                 bool selected = SelectSavePath();
                 if (selected == false) return;
             }
 
             Transaccion[] transaccionesModel = transacciones.Select(x => x.Adapt<Transaccion>()).ToArray();
-            TransactionsFileManager.SaveTransacciones(transaccionesModel, path);
+            TransactionsFileManager.SaveTransacciones(transaccionesModel, Path);
             // Pasar a sin cambios
         }
 
@@ -127,8 +135,8 @@ namespace Trackrypto.ViewModel
             openFileDialog.Filter = "JSON (.json)|*.json";
             if (openFileDialog.ShowDialog() == false) return;
 
-            path = openFileDialog.FileName;
-            var response = TransactionsFileManager.GetTransacciones(path);
+            Path = openFileDialog.FileName;
+            var response = TransactionsFileManager.GetTransacciones(Path);
             if (response.Type != ResponseType.Ok)
             {
                 // error
@@ -152,7 +160,7 @@ namespace Trackrypto.ViewModel
             var result = dialog.ShowDialog();
             if (result == true)
             {
-                path = dialog.FileName;
+                Path = dialog.FileName;
                 return true;
             }
 
