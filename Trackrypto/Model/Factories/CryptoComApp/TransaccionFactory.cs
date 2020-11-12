@@ -151,6 +151,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             {
                 Exchange = "crypto.com_app",
                 Comentarios = row.TransactionDescription,
+                Detalles = row.TransactionKind,
                 Fecha = row.TimestampUTC,
                 Alerta = false,
                 Mensaje_Alerta = ""

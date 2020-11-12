@@ -18,9 +18,11 @@ namespace Trackrypto.ViewModel.EntityViewModel
         public string Divisa_Compra { get; set; }
         public float? Cantidad_Venta { get; set; }
         public string Divisa_Venta { get; set; }
+        public decimal? Valor_Eur { get; set; }
         public float? Cantidad_Comision { get; set; }
         public string Divisa_Comision { get; set; }
         public string Comentarios { get; set; }
+        public string Detalles { get; set; }
         public DateTime Fecha { get; set; }
         public bool Alerta { get; set; }
         public string Mensaje_Alerta { get; set; }

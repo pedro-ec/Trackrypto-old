@@ -4,7 +4,7 @@ namespace Trackrypto.Model.Entities
 {
     public class Transaccion
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Tipo { get; set; }
         public string Subtipo { get; set; }
         public string Exchange { get; set; }
@@ -16,6 +16,7 @@ namespace Trackrypto.Model.Entities
         public decimal? Cantidad_Comision { get; set; }
         public string Divisa_Comision { get; set; }
         public string Comentarios { get; set; }
+        public string Detalles { get; set; }
         public DateTime Fecha { get; set; }
         public bool Alerta { get; set; }
         public string Mensaje_Alerta { get; set; }

@@ -106,6 +106,7 @@
                                 <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Compra}"/>
                                 <GridViewColumn Header="Venta" Width="100" DisplayMemberBinding="{Binding Cantidad_Venta}"/>
                                 <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Venta}"/>
+                                <GridViewColumn Header="Valor(EUR)" Width="100" DisplayMemberBinding="{Binding Valor_Eur}"/>
                                 <GridViewColumn Header="Comisión" Width="100" DisplayMemberBinding="{Binding Cantidad_Comision}"/>
                                 <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Comision}"/>
                                 <GridViewColumn Header="Comentarios" DisplayMemberBinding="{Binding Comentarios}"/>
