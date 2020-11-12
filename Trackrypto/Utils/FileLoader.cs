@@ -13,7 +13,7 @@ namespace Trackrypto.Utils
 {
     public static class FileLoader
     {
-        public static List<Transaccion> LoadCryptoComCsv(string filename)
+        public static Transaccion[] LoadCryptoComCsv(string filename)
         {
             var reader = new StreamReader(File.OpenRead(filename));
             List<Transaccion> transacciones = new List<Transaccion>();
@@ -31,7 +31,7 @@ namespace Trackrypto.Utils
                 transacciones.Add(transaccion);
             }
             //TransaccionRepository.BulkInsertTransaccion(transacciones.ToArray());
-            return transacciones;
+            return transacciones.ToArray();
         }
     }
 }

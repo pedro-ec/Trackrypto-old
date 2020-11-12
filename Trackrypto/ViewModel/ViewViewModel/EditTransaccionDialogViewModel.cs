@@ -21,7 +21,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             if(transaccion == null)
             {
                 DialogTitle = "Nueva Transacción";
-                Transaccion = new TransaccionViewModel { Fecha = DateTime.Now };
+                Transaccion = new TransaccionViewModel { Id = Guid.NewGuid() };
             }
             else
             {

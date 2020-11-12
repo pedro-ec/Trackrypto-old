@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Trackrypto.Model;
 using Trackrypto.ViewModel.Messenger;
 
 namespace Trackrypto.ViewModel.EntityViewModel
 {
     public class TransaccionViewModel
     {
+        public Guid Id { get; set; }
         public string Tipo { get; set; }
         public string Subtipo { get; set; }
         public string Exchange { get; set; }
@@ -28,8 +30,12 @@ namespace Trackrypto.ViewModel.EntityViewModel
         public string Mensaje_Alerta { get; set; }
 
 
+        private Domain model;
+
         public TransaccionViewModel()
         {
+            model = Domain.GetModel();
+
             WireCommands();
         }
 
@@ -47,6 +53,7 @@ namespace Trackrypto.ViewModel.EntityViewModel
         {
             var msg = new RemoveTransactionMessage { Transaccion = this };
             GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(msg);
+            model.DeleteTransaccion(this.Id);
         }
     }
 

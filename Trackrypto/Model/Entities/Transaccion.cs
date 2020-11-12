@@ -4,7 +4,7 @@ namespace Trackrypto.Model.Entities
 {
     public class Transaccion
     {
-        //public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Tipo { get; set; }
         public string Subtipo { get; set; }
         public string Exchange { get; set; }

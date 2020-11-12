@@ -13,10 +13,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using Trackrypto.Model;
 using Trackrypto.Model.Entities;
 using Trackrypto.Utils;
 using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
+using Trackrypto.ViewModel.Messenger;
 using Trackrypto.ViewModel.Navigation;
 
 namespace Trackrypto.ViewModel.ViewViewModel
@@ -24,6 +26,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
     public class TransactionListViewModel : ViewModelBase, IPageViewModel
     {
         #region private
+        private Domain model;
         private int selectedPage;
         //private int pageSize;
         #endregion
@@ -43,12 +46,17 @@ namespace Trackrypto.ViewModel.ViewViewModel
         public CollectionViewSource TransaccionesViewSource { get; set; }
 
         #region constructor
-        public TransactionListViewModel(RangeObservableCollection<TransaccionViewModel> transacciones = null)
+        public TransactionListViewModel()
         {
-            Transacciones = transacciones ?? new RangeObservableCollection<TransaccionViewModel>();
+            model = Domain.GetModel();
+
+            Transacciones = new RangeObservableCollection<TransaccionViewModel>();
             TransaccionesViewSource = new CollectionViewSource { Source = Transacciones };
 
             WireCommands();
+            RegisterMessenger();
+
+            Update();
         }
         #endregion
 
@@ -65,22 +73,19 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #endregion
 
         #region messenger
-
+        private void RegisterMessenger()
+        {
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<RemoveTransactionMessage>(this,
+                (action) => RemoveTransaccion(action.Transaccion));
+        }
         #endregion
 
-        //public void OnNavigate()
-        //{
-        //    Update();
-        //}
 
-        //public void Update()
-        //{
-        //    var response = TransaccionRepository.GetTransacciones();
-        //    if (response.Type != ResponseType.Ok) return;
-        //    var newTransacciones = response.Data;
-
-        //    Transacciones.ReplaceRange(newTransacciones.Select(x => x.Adapt<TransaccionViewModel>()));
-        //}
+        public void Update()
+        {
+            var transacciones = model.GetTransacciones();
+            Transacciones.ReplaceRange(transacciones.Select(x => x.Adapt<TransaccionViewModel>()));
+        }
 
         private void AddTransaccion()
         {
@@ -92,10 +97,15 @@ namespace Trackrypto.ViewModel.ViewViewModel
                 {
                     if ((bool)e.Parameter == false) return;
                     Transacciones.Add(context.Transaccion);
-                    //Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
-                    //TransaccionRepository.InsertTransaccion(transaccion);
-                    //Update();
+                    Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
+                    model.InsertTransaccion(transaccion);
                 });
+        }
+
+
+        private void RemoveTransaccion(TransaccionViewModel transaccion)
+        {
+            Transacciones.Remove(transaccion);
         }
 
         private void LoadFile()
@@ -113,17 +123,9 @@ namespace Trackrypto.ViewModel.ViewViewModel
                 var newTransacciones = FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
                 Transacciones.AddRange(newTransacciones.Select(transaccion => transaccion.Adapt<TransaccionViewModel>()));
+                model.InsertTransacciones(newTransacciones);
             }
         }
-
-
-
-        public void OnNavigate()
-        {
-            return;
-        }
         #endregion
-
-
     }
 }

@@ -25,11 +25,11 @@ namespace Trackrypto.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region private
+        private Domain model;
+
         private IPageViewModel currentPageViewModel;
 
         private string path;
-
-        private RangeObservableCollection<TransaccionViewModel> transacciones;
         #endregion
 
         public IPageViewModel CurrentPageViewModel
@@ -56,10 +56,10 @@ namespace Trackrypto.ViewModel
 
         public MainViewModel()
         {
-            transacciones = new RangeObservableCollection<TransaccionViewModel>();
+            model = Domain.GetModel();
             Path = "";
+            
             WireCommands();
-            RegisterMessenger();
         }
 
 
@@ -83,38 +83,22 @@ namespace Trackrypto.ViewModel
         #endregion
 
 
-        #region messenger
-        private void RegisterMessenger()
-        {
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<RemoveTransactionMessage>(this,
-                (action) => RemoveTransaccion(action.Transaccion));
-        }
-        #endregion
-
-
         #region navigation
         private void GoToSummary()
         {
             var viewModel = new SummaryViewModel();
+            CurrentPageViewModel = viewModel;
         }
 
         private void GoToTransactionList()
         {
-            var viewModel = new TransactionListViewModel(transacciones);
+            var viewModel = new TransactionListViewModel();
             CurrentPageViewModel = viewModel;
         }
-
         #endregion
 
 
-        private void RemoveTransaccion(TransaccionViewModel transaccion)
-        {
-            transacciones.Remove(transaccion);
-        }
-
-
         #region file manage
-
         private void SaveTransactions(bool saveAs = false)
         {
             if ((saveAs == true) || string.IsNullOrWhiteSpace(Path))
@@ -123,8 +107,9 @@ namespace Trackrypto.ViewModel
                 if (selected == false) return;
             }
 
-            Transaccion[] transaccionesModel = transacciones.Select(x => x.Adapt<Transaccion>()).ToArray();
-            TransactionsFileManager.SaveTransacciones(transaccionesModel, Path);
+            //Transaccion[] transaccionesModel = transacciones.Select(x => x.Adapt<Transaccion>()).ToArray();
+            //TransactionsFileManager.SaveTransacciones(transaccionesModel, Path);
+            model.Save(Path);
             // Pasar a sin cambios
         }
 
@@ -136,15 +121,9 @@ namespace Trackrypto.ViewModel
             if (openFileDialog.ShowDialog() == false) return;
 
             Path = openFileDialog.FileName;
-            var response = TransactionsFileManager.GetTransacciones(Path);
-            if (response.Type != ResponseType.Ok)
-            {
-                // error
-                return;
-            }
+            model.OpenFile(Path);
 
-            var newTransacciones = response.Data.Select(transaccion => transaccion.Adapt<TransaccionViewModel>());
-            transacciones.ReplaceRange(newTransacciones);
+            CurrentPageViewModel.Update();
         }
 
 

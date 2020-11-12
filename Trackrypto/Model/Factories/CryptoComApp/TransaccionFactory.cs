@@ -149,6 +149,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
         {
             Transaccion transaccion = new Transaccion
             {
+                Id = Guid.NewGuid(),
                 Exchange = "crypto.com_app",
                 Comentarios = row.TransactionDescription,
                 Detalles = row.TransactionKind,

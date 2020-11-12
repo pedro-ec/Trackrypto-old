@@ -8,6 +8,6 @@ namespace Trackrypto.ViewModel.Navigation
 {
     public interface IPageViewModel
     {
-        public void OnNavigate();
+        public void Update();
     }
 }
