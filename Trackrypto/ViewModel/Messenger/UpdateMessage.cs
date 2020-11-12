@@ -7,8 +7,5 @@ using Trackrypto.ViewModel.EntityViewModel;
 
 namespace Trackrypto.ViewModel.Messenger
 {
-    public class RemoveTransactionMessage
-    {
-        public TransaccionViewModel Transaccion { get; set; }
-    }
+    public class UpdateMessage { }
 }

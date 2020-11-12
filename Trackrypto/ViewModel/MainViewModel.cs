@@ -123,7 +123,7 @@ namespace Trackrypto.ViewModel
             Path = openFileDialog.FileName;
             model.OpenFile(Path);
 
-            CurrentPageViewModel.Update();
+            CurrentPageViewModel?.Update();
         }
 
 

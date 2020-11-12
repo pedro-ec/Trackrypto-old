@@ -51,9 +51,9 @@ namespace Trackrypto.ViewModel.EntityViewModel
 
         private void Delete()
         {
-            var msg = new RemoveTransactionMessage { Transaccion = this };
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(msg);
             model.DeleteTransaccion(this.Id);
+            var msg = new UpdateMessage();
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(msg);
         }
     }
 

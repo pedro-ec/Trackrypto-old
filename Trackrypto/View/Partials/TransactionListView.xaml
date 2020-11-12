@@ -96,7 +96,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <ListView ItemsSource="{Binding TransaccionesViewSource.View}">
+                    <ListView ItemsSource="{Binding Transacciones}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Tipo" Width="80" DisplayMemberBinding="{Binding Tipo}"/>
@@ -127,6 +127,30 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <ListBox Grid.Row="1" ItemsSource="{Binding PageList}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding}"
+                                            Command="{Binding DataContext.GoToPageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="0" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Border>

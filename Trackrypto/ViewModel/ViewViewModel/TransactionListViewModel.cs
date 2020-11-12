@@ -4,6 +4,7 @@ using HMY.Helpers.Collections;
 using HMY.Infrastructure.AsyncResponse;
 using Mapster;
 using MaterialDesignThemes.Wpf;
+using MaterialDesignThemes.Wpf.Transitions;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -27,23 +28,9 @@ namespace Trackrypto.ViewModel.ViewViewModel
     {
         #region private
         private Domain model;
-        private int selectedPage;
-        //private int pageSize;
-        #endregion
-
-
-        public int SelectedPage
-        {
-            get => selectedPage;
-            set
-            {
-                selectedPage = value;
-                RaisePropertyChanged();
-            }
-        }
+        #endregion        
 
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
-        public CollectionViewSource TransaccionesViewSource { get; set; }
 
         #region constructor
         public TransactionListViewModel()
@@ -51,10 +38,10 @@ namespace Trackrypto.ViewModel.ViewViewModel
             model = Domain.GetModel();
 
             Transacciones = new RangeObservableCollection<TransaccionViewModel>();
-            TransaccionesViewSource = new CollectionViewSource { Source = Transacciones };
 
             WireCommands();
             RegisterMessenger();
+            ConfigurePagination();
 
             Update();
         }
@@ -62,29 +49,42 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
-        public ICommand LoadFileCommand { get; private set; }
         public ICommand ImportCryptoComCsvCommand { get; private set; }
+        public RelayCommand<int> GoToPageCommand { get; private set; }
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
-            LoadFileCommand = new RelayCommand(() => LoadFile());
             ImportCryptoComCsvCommand = new RelayCommand(() => ImportCryptoComCsv());
+            GoToPageCommand = new RelayCommand<int>((page) => GoToPage(page));
         }
         #endregion
 
         #region messenger
         private void RegisterMessenger()
         {
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<RemoveTransactionMessage>(this,
-                (action) => RemoveTransaccion(action.Transaccion));
+            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<UpdateMessage>(this,
+                (action) => Update());
         }
         #endregion
 
 
         public void Update()
         {
-            var transacciones = model.GetTransacciones();
+            var transacciones = model.GetTransacciones().ToList();
+            // Filtrar
+            int length = transacciones.Count();
+            SetMaxPage(length);
+            //if (length == 0)
+            //{
+            //    Transacciones.Clear();
+            //    return;
+            //}
+            if (SelectedPage > MaxPage) SelectedPage = MaxPage;
+            int index = (SelectedPage - 1) * PageSize;
+            int count = Math.Min(length - index, PageSize);
+            transacciones = transacciones.GetRange(index, count);
             Transacciones.ReplaceRange(transacciones.Select(x => x.Adapt<TransaccionViewModel>()));
+            // Ordenar
         }
 
         private void AddTransaccion()
@@ -103,16 +103,6 @@ namespace Trackrypto.ViewModel.ViewViewModel
         }
 
 
-        private void RemoveTransaccion(TransaccionViewModel transaccion)
-        {
-            Transacciones.Remove(transaccion);
-        }
-
-        private void LoadFile()
-        {
-            FileLoader.LoadCryptoComCsv("");
-        }
-
         #region imports
         private void ImportCryptoComCsv()
         {
@@ -122,9 +112,69 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 var newTransacciones = FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
-                Transacciones.AddRange(newTransacciones.Select(transaccion => transaccion.Adapt<TransaccionViewModel>()));
                 model.InsertTransacciones(newTransacciones);
+                Update();
             }
+        }
+        #endregion
+
+
+        #region pagination
+        private int selectedPage;
+        public int SelectedPage
+        {
+            get => selectedPage;
+            set
+            {
+                selectedPage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private int pageSize;
+        public int PageSize
+        {
+            get => pageSize;
+            set
+            {
+                pageSize = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private int maxPage;
+        public int MaxPage
+        {
+            get => maxPage;
+            set
+            {
+                maxPage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RangeObservableCollection<int> PageList { get; private set; }
+
+        private void ConfigurePagination()
+        {
+            SelectedPage = 1;
+            PageSize = 10;
+
+            PageList = new RangeObservableCollection<int>();
+        }
+
+
+        public void SetMaxPage(int length)
+        {
+            if (length > 0) MaxPage = (length / PageSize) + 1;
+            else MaxPage = 1;
+            PageList.ReplaceRange(Enumerable.Range(1, MaxPage));
+        }
+
+        private void GoToPage(int page)
+        {
+            SelectedPage = page;
+            Update();
         }
         #endregion
     }
