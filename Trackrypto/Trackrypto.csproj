@@ -64,6 +64,7 @@
     <Compile Include="Helpers\TransactionsFileManager.cs" />
     <Compile Include="Model\Factories\CryptoComApp\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComApp\Utils\CsvRow.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Utils\FileLoader.cs" />
     <Compile Include="ViewModel\EntityViewModel\TransaccionViewModel.cs" />
     <Compile Include="App.xaml.cs">
