@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trackrypto.Model.Entities;
-using Trackrypto.Model.Factories.CryptoComApp.Utils;
 
 namespace Trackrypto.Model.Factories.CryptoComApp
 {
-    class KindConverter
-    {
-        public string Tipo { get; }
-        public bool Alerta { get; }
-        public string Mensaje_Alerta { get; }
-    }
+    //class KindConverter
+    //{
+    //    public string Tipo { get; }
+    //    public bool Alerta { get; }
+    //    public string Mensaje_Alerta { get; }
+    //}
     
-    public static class CryptoComTransaccionFactory
+    public static class TransaccionFactory
     {
         private static readonly string[] depositos =
         {
@@ -61,7 +60,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
         };
 
 
-        public static Transaccion FromAppCsv(string line)
+        public static Transaccion GetTransaccion(string line)
         {
             //var values = line.Split(';');
             CsvRow row = CsvRow.FromCsv(line);

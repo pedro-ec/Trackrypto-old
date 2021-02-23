@@ -30,7 +30,7 @@ namespace Trackrypto.ViewModel.EntityViewModel
         public string Mensaje_Alerta { get; set; }
 
 
-        private Domain model;
+        private readonly Domain model;
 
         public TransaccionViewModel()
         {

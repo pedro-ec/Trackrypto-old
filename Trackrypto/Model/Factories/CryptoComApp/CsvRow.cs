@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Trackrypto.Model.Factories.CryptoComApp.Utils
+namespace Trackrypto.Model.Factories.CryptoComApp
 {
     public class CsvRow
     {

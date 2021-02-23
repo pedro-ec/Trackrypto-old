@@ -59,7 +59,10 @@
                             </StackPanel.Background>
                             <Button Content="Crypto.com CSV" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
-                                    Command="{Binding ImportCryptoComCsvCommand}"/>
+                                    Command="{Binding ImportCdcAppCsvCommand}"/>
+                            <Button Content="Crypto.com Exchange" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportCdcExchangeCsvCommand}"/>
                             <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
                             <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
                         </StackPanel>
@@ -82,7 +85,6 @@
                             <StackPanel.Background>
                                 <SolidColorBrush Color="White" Opacity="0.8"/>
                             </StackPanel.Background>
-                            <Button Content="Crypto.com Exchange" Style="{StaticResource MaterialDesignFlatButton}"/>
                             <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
                             <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
                         </StackPanel>

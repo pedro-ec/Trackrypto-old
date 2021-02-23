@@ -6,6 +6,7 @@ using Mapster;
 using MaterialDesignThemes.Wpf;
 using MaterialDesignThemes.Wpf.Transitions;
 using Microsoft.Win32;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
     public class TransactionListViewModel : ViewModelBase, IPageViewModel
     {
         #region private
-        private Domain model;
+        private readonly Domain model;
         #endregion        
 
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
@@ -49,12 +50,16 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
-        public ICommand ImportCryptoComCsvCommand { get; private set; }
+        public ICommand ImportCdcAppCsvCommand { get; private set; }
+        public ICommand ImportCdcExchangeCsvCommand { get; private set; }
         public RelayCommand<int> GoToPageCommand { get; private set; }
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
-            ImportCryptoComCsvCommand = new RelayCommand(() => ImportCryptoComCsv());
+
+            ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
+            ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
+
             GoToPageCommand = new RelayCommand<int>((page) => GoToPage(page));
         }
         #endregion
@@ -104,16 +109,40 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
 
         #region imports
-        private void ImportCryptoComCsv()
+        private void ImportCdcAppCsv()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV (*.csv) | *.csv";
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
             if (openFileDialog.ShowDialog() == true)
             {
-                var newTransacciones = FileLoader.LoadCryptoComCsv(openFileDialog.FileName);
+                var newTransacciones = FileLoader.LoadCryptoComAppCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
                 model.InsertTransacciones(newTransacciones);
                 Update();
+            }
+        }
+
+        private void ImportCdcExchangeCsv()
+        {
+            VistaFolderBrowserDialog folderBrowserDialog = new VistaFolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == true)
+            {
+                DirectoryInfo directory = new DirectoryInfo(folderBrowserDialog.SelectedPath);
+                SearchCdcExchangeFiles(directory);
+                Update();
+            }
+        }
+
+        private void SearchCdcExchangeFiles(DirectoryInfo directory)
+        {
+            foreach (var subdirectory in directory.EnumerateDirectories())
+            {
+                SearchCdcExchangeFiles(subdirectory);
+            }
+
+            foreach (var file in directory.EnumerateFiles())
+            {
+                var newTransacciones = FileLoader.LoadCryptoComExchangeCsv(file.FullName, file.Name);
+                model.InsertTransacciones(newTransacciones);
             }
         }
         #endregion

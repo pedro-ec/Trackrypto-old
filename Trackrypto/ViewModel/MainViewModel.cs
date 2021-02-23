@@ -25,7 +25,7 @@ namespace Trackrypto.ViewModel
     public class MainViewModel : ViewModelBase
     {
         #region private
-        private Domain model;
+        private readonly Domain model;
 
         private IPageViewModel currentPageViewModel;
 
@@ -116,8 +116,7 @@ namespace Trackrypto.ViewModel
 
         private void OpenFile()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JSON (.json)|*.json";
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "JSON (.json)|*.json" };
             if (openFileDialog.ShowDialog() == false) return;
 
             Path = openFileDialog.FileName;
