@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,8 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
     public class SpotWalletCsvRow
     {
         public string AccountType;
-        public int OrderId;
-        public int TradeId;
+        public long OrderId;
+        public long TradeId;
         public DateTime TimestampUTC;
         public string Symbol;
         public string Side;
@@ -27,15 +28,15 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
             SpotWalletCsvRow csvRow = new SpotWalletCsvRow
             {
                 AccountType = values[0],
-                OrderId = Convert.ToInt32(values[1]),
-                TradeId = Convert.ToInt32(values[2]),
+                OrderId = Convert.ToInt64(values[1]),
+                TradeId = Convert.ToInt64(values[2]),
                 TimestampUTC = Convert.ToDateTime(values[3]),
                 Symbol = values[4],
                 Side = values[5],
                 LiquidityIndicator = values[6],
-                TradedPrice = Convert.ToDecimal(values[7]),
-                TradedQuantity = Convert.ToDecimal(values[8]),
-                Fee = Convert.ToDecimal(values[9]),
+                TradedPrice = Convert.ToDecimal(values[7], CultureInfo.InvariantCulture),
+                TradedQuantity = Convert.ToDecimal(values[8], CultureInfo.InvariantCulture),
+                Fee = Convert.ToDecimal(values[9], CultureInfo.InvariantCulture),
                 FeeCurrency = values[10],
          
             };

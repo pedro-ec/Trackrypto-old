@@ -142,6 +142,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             foreach (var file in directory.EnumerateFiles())
             {
                 var newTransacciones = FileLoader.LoadCryptoComExchangeCsv(file.FullName, file.Name);
+                if (newTransacciones == null) continue;
                 model.InsertTransacciones(newTransacciones);
             }
         }

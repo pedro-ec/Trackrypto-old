@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,10 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
             {
                 TimestampUTC = Convert.ToDateTime(values[0]),
                 TradeFeeCurrency = values[1],
-                TradeFeeAmount = Convert.ToDecimal(values[2]),
+                TradeFeeAmount = Convert.ToDecimal(values[2], CultureInfo.InvariantCulture),
                 RebatePercentage = values[3],
                 RebateCurrency = values[4],
-                RebateAmount = Convert.ToDecimal(values[5]),
+                RebateAmount = Convert.ToDecimal(values[5], CultureInfo.InvariantCulture),
                 RebateDestination = values[6],
                 Status = Convert.ToInt32(values[7])
             };

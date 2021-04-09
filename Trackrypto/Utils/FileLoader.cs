@@ -35,17 +35,18 @@ namespace Trackrypto.Utils
 
         private static readonly Dictionary<string, Func<string, Transaccion>> CryptoComExchangeFactories = new Dictionary<string, Func<string, Transaccion>>()
         {
-            { "DEPOSIT", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetDeposito(filename) },
-            { "WITHDRAWAL", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
-            { "STAKE_INTEREST", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
-            { "TRADE_FEE_REBATE", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
-            { "SOFT_STAKE_INTEREST", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
-            { "SPOT_TRADE", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
+            { "DEPOSIT.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetDeposito(filename) },
+            { "WITHDRAWAL.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
+            { "STAKE_INTEREST.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetStake(filename) },
+            { "TRADE_FEE_REBATE.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetReembolso(filename) },
+            { "SOFT_STAKE_INTEREST.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetSoftStaking(filename) },
+            { "SPOT_TRADE.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetSpotTrade(filename) },
         };
 
         public static Transaccion[] LoadCryptoComExchangeCsv(string path, string filename)
         {
-            var getTransaccion = CryptoComExchangeFactories[filename];
+            Func<string, Transaccion> getTransaccion;
+            CryptoComExchangeFactories.TryGetValue(filename, out getTransaccion);
             if (getTransaccion == null) return null;
 
             var reader = new StreamReader(File.OpenRead(path));
