@@ -50,9 +50,15 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
+        
         public ICommand ImportCdcAppCsvCommand { get; private set; }
         public ICommand ImportCdcExchangeCsvCommand { get; private set; }
+
+        public ICommand GoToFirstCommand { get; private set; }
+        public ICommand GoToPreviousCommand { get; private set; }
         public RelayCommand<int> GoToPageCommand { get; private set; }
+        public ICommand GoToNextCommand { get; private set; }
+        public ICommand GoToLastCommand { get; private set; }
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
@@ -60,7 +66,11 @@ namespace Trackrypto.ViewModel.ViewViewModel
             ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
             ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
 
+            GoToFirstCommand = new RelayCommand(() => GoToPage(1));
+            GoToPreviousCommand = new RelayCommand(() => GoToPage(SelectedPage - 1));
             GoToPageCommand = new RelayCommand<int>((page) => GoToPage(page));
+            GoToNextCommand = new RelayCommand(() => GoToPage(SelectedPage + 1));
+            GoToLastCommand = new RelayCommand(() => GoToPage(MaxPage));
         }
         #endregion
 
@@ -78,7 +88,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             var transacciones = model.GetTransacciones().ToList();
             // Filtrar
             int length = transacciones.Count();
-            SetMaxPage(length);
+            SetPagination(length);
             //if (length == 0)
             //{
             //    Transacciones.Clear();
@@ -194,12 +204,16 @@ namespace Trackrypto.ViewModel.ViewViewModel
         }
 
 
-        public void SetMaxPage(int length)
+        public void SetPagination(int length)
         {
             if (length > 0) MaxPage = (length / PageSize) + 1;
             else MaxPage = 1;
-            PageList.ReplaceRange(Enumerable.Range(1, MaxPage));
+
+            var firstPage = Math.Max(1, SelectedPage - 5);
+            var pagelist = Enumerable.Range(firstPage, Math.Min(MaxPage - SelectedPage + 6, 10));
+            PageList.ReplaceRange(pagelist);
         }
+
 
         private void GoToPage(int page)
         {

@@ -131,8 +131,38 @@
                     </ListView>
 
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <ListBox Grid.Row="1" ItemsSource="{Binding PageList}">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding GoToFirstCommand}">
+                            <materialDesign:PackIcon Kind="ChevronDoubleLeft"/>
+                        </Button>
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding GoToPreviousCommand}">
+                            <materialDesign:PackIcon Kind="ChevronLeft"/>
+                        </Button>
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding PageList}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding}"
+                                            Command="{Binding DataContext.GoToPageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignIconButton}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <!--<ItemsControl.ItemContainerStyle>
+                                <Style TargetType="items">
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>-->
+                        </ItemsControl>
+                        <!--<ListBox Grid.Row="1" ItemsSource="{Binding PageList}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal"/>
@@ -143,15 +173,25 @@
                                     <Button Content="{Binding}"
                                             Command="{Binding DataContext.GoToPageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
                                             CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignFlatButton}"/>
+                                            Style="{StaticResource MaterialDesignIconButton}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="Padding" Value="0"/>
                                 </Style>
                             </ListBox.ItemContainerStyle>
-                        </ListBox>
+                        </ListBox>-->
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding GoToNextCommand}">
+                            <materialDesign:PackIcon Kind="ChevronRight"/>
+                        </Button>
+                        <Button VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding GoToLastCommand}">
+                            <materialDesign:PackIcon Kind="ChevronDoubleRight"/>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Grid>
