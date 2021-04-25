@@ -10,7 +10,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
 {
     public class SummaryViewModel : ViewModelBase, IPageViewModel
     {
-        public void Update()
+        public void Update(bool restore = false)
         {
             
         }

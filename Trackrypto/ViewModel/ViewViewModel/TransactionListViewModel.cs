@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using Trackrypto.Helpers;
 using Trackrypto.Model;
 using Trackrypto.Model.Entities;
 using Trackrypto.Utils;
@@ -22,6 +23,7 @@ using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
 using Trackrypto.ViewModel.Messenger;
 using Trackrypto.ViewModel.Navigation;
+using Trackrypto.ViewModel.ViewViewModel.Filters;
 
 namespace Trackrypto.ViewModel.ViewViewModel
 {
@@ -33,12 +35,16 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
 
+        public TipoFilterViewModel TipoFilterViewModel { get; }
+
         #region constructor
         public TransactionListViewModel()
         {
             model = Domain.GetModel();
 
             Transacciones = new RangeObservableCollection<TransaccionViewModel>();
+
+            TipoFilterViewModel = new TipoFilterViewModel();
 
             WireCommands();
             RegisterMessenger();
@@ -83,11 +89,14 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #endregion
 
 
-        public void Update()
+        public void Update(bool restore = false)
         {
-            var transacciones = model.GetTransacciones().ToList();
-            // Filtrar
+            var transacciones = model.GetTransacciones(GetFilters())
+                .OrderByDescending(transaccion => transaccion.Fecha)
+                .ToList();
+
             int length = transacciones.Count();
+            if (restore) SelectedPage = 1;
             SetPagination(length);
             //if (length == 0)
             //{
@@ -100,6 +109,13 @@ namespace Trackrypto.ViewModel.ViewViewModel
             transacciones = transacciones.GetRange(index, count);
             Transacciones.ReplaceRange(transacciones.Select(x => x.Adapt<TransaccionViewModel>()));
             // Ordenar
+        }
+
+        private TransaccionesFilter GetFilters()
+        {
+            var filters = new TransaccionesFilter();
+            filters.Tipo = TipoFilterViewModel.GetFilter();
+            return filters;
         }
 
         private void AddTransaccion()

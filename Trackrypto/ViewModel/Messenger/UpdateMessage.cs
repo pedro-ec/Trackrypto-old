@@ -7,5 +7,7 @@ using Trackrypto.ViewModel.EntityViewModel;
 
 namespace Trackrypto.ViewModel.Messenger
 {
-    public class UpdateMessage { }
+    public class UpdateMessage {
+        public bool Restore { get; set; }
+    }
 }

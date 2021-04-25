@@ -62,6 +62,7 @@
     </ApplicationDefinition>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Helpers\TransactionsFileManager.cs" />
+    <Compile Include="Helpers\TransaccionesFilter.cs" />
     <Compile Include="Model\Factories\CryptoComApp\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComApp\CsvRow.cs" />
     <Compile Include="Model\Domain.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="ViewModel\Navigation\IPageViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\EditTransaccionDialogViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\SummaryViewModel.cs" />
+    <Compile Include="ViewModel\ViewViewModel\Filters\TipoFilterViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\TransactionListViewModel.cs" />
     <Compile Include="View\Controls\ExtendedDataGrid.xaml.cs">
       <DependentUpon>ExtendedDataGrid.xaml</DependentUpon>

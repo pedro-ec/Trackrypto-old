@@ -28,6 +28,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
@@ -55,16 +56,16 @@
                         </materialDesign:PopupBox.ToggleCheckedContent>
                         <StackPanel>
                             <StackPanel.Background>
-                                <SolidColorBrush Color="White" Opacity="0.8"/>
+                                <SolidColorBrush Color="White" Opacity="0.9"/>
                             </StackPanel.Background>
-                            <Button Content="Crypto.com CSV" 
+                            <Button Content="Crypto.com App" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportCdcAppCsvCommand}"/>
                             <Button Content="Crypto.com Exchange" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportCdcExchangeCsvCommand}"/>
-                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
-                            <Button Content="Crypto.com CSV" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Etherscan (ETH)" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Etherscan (ERC20 Token)" Style="{StaticResource MaterialDesignFlatButton}"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
 
@@ -92,7 +93,23 @@
 
                 </StackPanel>
 
-                <Grid Margin="8" Grid.Row="1">
+                <Expander Grid.Row="1" Margin="8"
+                          HorizontalAlignment="Stretch"
+                          Header="Filtros">
+                    <StackPanel Orientation="Horizontal" Margin="24,8,24,16">
+                        <StackPanel Orientation="Vertical" DataContext="{Binding TipoFilterViewModel}">
+                            <TextBlock Text="TIPO"/>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowAll}">Mostrar Todo</CheckBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowDepositos}">Depósitos</CheckBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowIngresos}">Ingresos</CheckBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowOperaciones}">Operaciones</CheckBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowPerdidas}">Pérdidas</CheckBox>
+                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowRetiradas}">Retiradas</CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+                <Grid Margin="8" Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -111,6 +128,7 @@
                                 <GridViewColumn Header="Valor(EUR)" Width="100" DisplayMemberBinding="{Binding Valor_Eur}"/>
                                 <GridViewColumn Header="Comisión" Width="100" DisplayMemberBinding="{Binding Cantidad_Comision}"/>
                                 <GridViewColumn Header="Divisa" Width="70" DisplayMemberBinding="{Binding Divisa_Comision}"/>
+                                <GridViewColumn Header="Detalles" DisplayMemberBinding="{Binding Detalles}"/>
                                 <GridViewColumn Header="Comentarios" DisplayMemberBinding="{Binding Comentarios}"/>
                                 <GridViewColumn Header="Fecha" Width="140" DisplayMemberBinding="{Binding Fecha}"/>
                                 <GridViewColumn Header="">
@@ -156,32 +174,7 @@
                                             Style="{StaticResource MaterialDesignIconButton}"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                            <!--<ItemsControl.ItemContainerStyle>
-                                <Style TargetType="items">
-                                    <Setter Property="Padding" Value="0"/>
-                                </Style>
-                            </ItemsControl.ItemContainerStyle>-->
                         </ItemsControl>
-                        <!--<ListBox Grid.Row="1" ItemsSource="{Binding PageList}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Content="{Binding}"
-                                            Command="{Binding DataContext.GoToPageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignIconButton}"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Padding" Value="0"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                        </ListBox>-->
                         <Button VerticalAlignment="Center"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 Command="{Binding GoToNextCommand}">

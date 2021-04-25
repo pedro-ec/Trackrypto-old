@@ -34,6 +34,13 @@ namespace Trackrypto.Model
             return transacciones.ToArray();
         }
 
+        public Transaccion[] GetTransacciones(TransaccionesFilter filter)
+        {
+            return transacciones
+                .Where(transaccion => filter.Tipo.Contains(transaccion.Tipo))
+                .ToArray();
+        }
+
         public void InsertTransaccion(Transaccion transaccion)
         {
             transacciones.Add(transaccion);
