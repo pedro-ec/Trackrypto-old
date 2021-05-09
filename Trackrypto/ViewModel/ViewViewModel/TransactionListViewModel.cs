@@ -59,6 +59,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
         
         public ICommand ImportCdcAppCsvCommand { get; private set; }
         public ICommand ImportCdcExchangeCsvCommand { get; private set; }
+        public ICommand ImportEtherscanEthereumCsvCommand { get; private set; }
+        public ICommand ImportEtherscanTokenCsvCommand { get; private set; }
 
         public ICommand GoToFirstCommand { get; private set; }
         public ICommand GoToPreviousCommand { get; private set; }
@@ -71,6 +73,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
             ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
             ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
+            ImportEtherscanEthereumCsvCommand = new RelayCommand(() => ImportEtherscanEthereumCsv());
+            ImportEtherscanTokenCsvCommand = new RelayCommand(() => ImportEtherscanTokenCsv());
 
             GoToFirstCommand = new RelayCommand(() => GoToPage(1));
             GoToPreviousCommand = new RelayCommand(() => GoToPage(SelectedPage - 1));
@@ -170,6 +174,30 @@ namespace Trackrypto.ViewModel.ViewViewModel
                 var newTransacciones = FileLoader.LoadCryptoComExchangeCsv(file.FullName, file.Name);
                 if (newTransacciones == null) continue;
                 model.InsertTransacciones(newTransacciones);
+            }
+        }
+
+        private void ImportEtherscanEthereumCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var newTransacciones = FileLoader.LoadEtherscanEthereumCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                model.InsertTransacciones(newTransacciones);
+                Update();
+            }
+        }
+
+        private void ImportEtherscanTokenCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var newTransacciones = FileLoader.LoadEtherscanTokenCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                model.InsertTransacciones(newTransacciones);
+                Update();
             }
         }
         #endregion

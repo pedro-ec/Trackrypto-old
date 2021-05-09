@@ -64,8 +64,12 @@
                             <Button Content="Crypto.com Exchange" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportCdcExchangeCsvCommand}"/>
-                            <Button Content="Etherscan (ETH)" Style="{StaticResource MaterialDesignFlatButton}"/>
-                            <Button Content="Etherscan (ERC20 Token)" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            <Button Content="Etherscan (ETH)" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportEtherscanEthereumCsvCommand}"/>
+                            <Button Content="Etherscan (ERC20 Token)" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportEtherscanTokenCsvCommand}"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
 

@@ -15,8 +15,8 @@ namespace Trackrypto.Model.Entities
         public decimal? Valor_Eur { get; set; }
         public decimal? Cantidad_Comision { get; set; }
         public string Divisa_Comision { get; set; }
-        public string Comentarios { get; set; }
         public string Detalles { get; set; }
+        public string Comentarios { get; set; }
         public DateTime Fecha { get; set; }
         public bool Alerta { get; set; }
         public string Mensaje_Alerta { get; set; }
