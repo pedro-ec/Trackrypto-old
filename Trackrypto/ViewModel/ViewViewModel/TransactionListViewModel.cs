@@ -18,6 +18,7 @@ using System.Windows.Input;
 using Trackrypto.Helpers;
 using Trackrypto.Model;
 using Trackrypto.Model.Entities;
+using Trackrypto.Repositories;
 using Trackrypto.Utils;
 using Trackrypto.View.Dialogs;
 using Trackrypto.ViewModel.EntityViewModel;
@@ -29,10 +30,6 @@ namespace Trackrypto.ViewModel.ViewViewModel
 {
     public class TransactionListViewModel : ViewModelBase, IPageViewModel
     {
-        #region private
-        private readonly Domain model;
-        #endregion        
-
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
 
         public TipoFilterViewModel TipoFilterViewModel { get; }
@@ -40,8 +37,6 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #region constructor
         public TransactionListViewModel()
         {
-            model = Domain.GetModel();
-
             Transacciones = new RangeObservableCollection<TransaccionViewModel>();
 
             TipoFilterViewModel = new TipoFilterViewModel();
@@ -77,7 +72,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             ImportEtherscanTokenCsvCommand = new RelayCommand(() => ImportEtherscanTokenCsv());
 
             GoToFirstCommand = new RelayCommand(() => GoToPage(1));
-            GoToPreviousCommand = new RelayCommand(() => GoToPage(SelectedPage - 1));
+            GoToPreviousCommand = new RelayCommand(() => GoToPage(Math.Max((SelectedPage - 1), 1)));
             GoToPageCommand = new RelayCommand<int>((page) => GoToPage(page));
             GoToNextCommand = new RelayCommand(() => GoToPage(SelectedPage + 1));
             GoToLastCommand = new RelayCommand(() => GoToPage(MaxPage));
@@ -88,14 +83,14 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private void RegisterMessenger()
         {
             GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<UpdateMessage>(this,
-                (action) => Update());
+                (action) => Update(action.Restore));
         }
         #endregion
 
 
         public void Update(bool restore = false)
         {
-            var transacciones = model.GetTransacciones(GetFilters())
+            var transacciones = TransaccionesRepository.GetTransacciones(GetFilters())
                 .OrderByDescending(transaccion => transaccion.Fecha)
                 .ToList();
 
@@ -133,7 +128,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
                     if ((bool)e.Parameter == false) return;
                     Transacciones.Add(context.Transaccion);
                     Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
-                    model.InsertTransaccion(transaccion);
+                    TransaccionesRepository.InsertTransaccion(transaccion);
                 });
         }
 
@@ -146,7 +141,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 var newTransacciones = FileLoader.LoadCryptoComAppCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
-                model.InsertTransacciones(newTransacciones);
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();
             }
         }
@@ -173,7 +168,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 var newTransacciones = FileLoader.LoadCryptoComExchangeCsv(file.FullName, file.Name);
                 if (newTransacciones == null) continue;
-                model.InsertTransacciones(newTransacciones);
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
             }
         }
 
@@ -184,7 +179,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 var newTransacciones = FileLoader.LoadEtherscanEthereumCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
-                model.InsertTransacciones(newTransacciones);
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();
             }
         }
@@ -196,7 +191,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 var newTransacciones = FileLoader.LoadEtherscanTokenCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
-                model.InsertTransacciones(newTransacciones);
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();
             }
         }

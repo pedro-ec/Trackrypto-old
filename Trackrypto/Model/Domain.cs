@@ -7,11 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Trackrypto.Helpers;
 using Trackrypto.Model.Entities;
+using Trackrypto.Model.Entities.Summary;
 
 namespace Trackrypto.Model
 {
     public class Domain
     {
+        public List<Transaccion> transacciones { get; }
+
         #region singleton
         private Domain()
         {
@@ -27,43 +30,16 @@ namespace Trackrypto.Model
         }
         #endregion
 
-        private List<Transaccion> transacciones;
-
-        public Transaccion[] GetTransacciones()
+        public ExchangeSummary[] GetSummary()
         {
-            return transacciones.ToArray();
-        }
+            var exchanges = new List<ExchangeSummary>();
 
-        public Transaccion[] GetTransacciones(TransaccionesFilter filter)
-        {
-            return transacciones
-                .Where(transaccion => filter.Tipo.Contains(transaccion.Tipo))
-                .ToArray();
-        }
+            foreach (Transaccion transaccion in transacciones)
+            {
 
-        public void InsertTransaccion(Transaccion transaccion)
-        {
-            transacciones.Add(transaccion);
-        }
+            }
 
-        public void InsertTransacciones(Transaccion[] newTransacciones)
-        {
-            transacciones.AddRange(newTransacciones);
-        }
-
-        public void DeleteTransaccion(Guid id)
-        {
-            transacciones.Remove(transacciones.FirstOrDefault(x => x.Id == id));
-        }
-
-        public void DeleteTransacciones(Guid[] ids)
-        {
-            transacciones.RemoveAll(x => ids.Contains(x.Id));
-        }
-
-        public void Save(string path)
-        {
-            TransactionsFileManager.SaveTransacciones(transacciones.ToArray(), path);
+            return exchanges.ToArray();
         }
 
         public void OpenFile(string path)
@@ -79,5 +55,8 @@ namespace Trackrypto.Model
             transacciones.Clear();
             transacciones.AddRange(newTransacciones);
         }
+
+        public void Save(string path) =>
+            TransactionsFileManager.SaveTransacciones(transacciones.ToArray(), path);
     }
 }
