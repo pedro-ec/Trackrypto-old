@@ -4,9 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Trackrypto.View.Partials"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="hola"/>
+    <Grid Margin="64 24 64 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="Resumen" 
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}"/>
+            <TextBlock Text="Resumen del portafolio" 
+                       Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" 
+                Margin="8"
+                CornerRadius="4"
+                Background="White"
+                BorderBrush="Gray"
+                BorderThickness="0.7">
+
+            <ListBox ItemsSource="{Binding Exchanges}">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card Background="{DynamicResource PrimaryHueDarkBrush}"
+                                             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                             Width="200"
+                                             Padding="8">
+                            <StackPanel>
+                                <TextBlock Margin="16 16 12 8"
+                                           FontSize="16"
+                                           Text="hola"/>
+
+                                <ListBox ItemsSource="{Binding Coins}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" >
+                                                <TextBlock Text="{Binding Symbol}" 
+                                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="#FFF"/>
+                                                <materialDesign:PackIcon Kind="ArrowRightBold"
+                                                                         Width="24"
+                                                                         Height="24"
+                                                                         VerticalAlignment="Center"
+                                                                         Foreground="#FFF"/>
+                                                <TextBlock Text="{Binding Value}"
+                                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="#FFF"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
     </Grid>
+
 </UserControl>

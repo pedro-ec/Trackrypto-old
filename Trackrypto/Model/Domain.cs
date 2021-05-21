@@ -30,17 +30,6 @@ namespace Trackrypto.Model
         }
         #endregion
 
-        public ExchangeSummary[] GetSummary()
-        {
-            var exchanges = new List<ExchangeSummary>();
-
-            foreach (Transaccion transaccion in transacciones)
-            {
-
-            }
-
-            return exchanges.ToArray();
-        }
 
         public void OpenFile(string path)
         {

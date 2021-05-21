@@ -12,7 +12,7 @@ namespace Trackrypto.Repositories
     public static class TransaccionesRepository
     {
         #region private
-        private static Domain model;
+        private static Domain model => Domain.GetModel();
         private static List<Transaccion> transacciones => model.transacciones;
         #endregion
 

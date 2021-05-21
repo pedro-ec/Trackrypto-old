@@ -63,6 +63,8 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Helpers\TransactionsFileManager.cs" />
     <Compile Include="Helpers\TransaccionesFilter.cs" />
+    <Compile Include="Model\Entities\Summary\CoinSummary.cs" />
+    <Compile Include="Model\Entities\Summary\ExchangeSummary.cs" />
     <Compile Include="Model\Factories\CryptoComApp\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComApp\CsvRow.cs" />
     <Compile Include="Model\Domain.cs" />
@@ -75,7 +77,12 @@
     <Compile Include="Model\Factories\Etherscan\EthereumCsvRow.cs" />
     <Compile Include="Model\Factories\Etherscan\TokenCsvRow.cs" />
     <Compile Include="Model\Factories\Etherscan\TransaccionFactory.cs" />
+    <Compile Include="Model\Factories\SummaryFactory.cs" />
+    <Compile Include="Repositories\SummaryRepository.cs" />
+    <Compile Include="Repositories\TransaccionesRepository.cs" />
     <Compile Include="Utils\FileLoader.cs" />
+    <Compile Include="ViewModel\EntityViewModel\Summary\CoinSummaryViewModel.cs" />
+    <Compile Include="ViewModel\EntityViewModel\Summary\ExchangeSummaryViewModel.cs" />
     <Compile Include="ViewModel\EntityViewModel\TransaccionViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

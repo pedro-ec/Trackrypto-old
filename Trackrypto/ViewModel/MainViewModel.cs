@@ -107,8 +107,7 @@ namespace Trackrypto.ViewModel
                 if (selected == false) return;
             }
 
-            //Transaccion[] transaccionesModel = transacciones.Select(x => x.Adapt<Transaccion>()).ToArray();
-            //TransactionsFileManager.SaveTransacciones(transaccionesModel, Path);
+
             model.Save(Path);
             // Pasar a sin cambios
         }
