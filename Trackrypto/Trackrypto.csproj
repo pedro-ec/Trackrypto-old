@@ -92,11 +92,16 @@
     <Compile Include="ViewModel\Messenger\UpdateMessage.cs" />
     <Compile Include="ViewModel\Navigation\IPageViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\EditTransaccionDialogViewModel.cs" />
+    <Compile Include="ViewModel\ViewViewModel\Filters\FilterItemViewModel.cs" />
+    <Compile Include="ViewModel\ViewViewModel\Filters\FilterViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\SummaryViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\Filters\TipoFilterViewModel.cs" />
     <Compile Include="ViewModel\ViewViewModel\TransactionListViewModel.cs" />
     <Compile Include="View\Controls\ExtendedDataGrid.xaml.cs">
       <DependentUpon>ExtendedDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controls\Filter.xaml.cs">
+      <DependentUpon>Filter.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\EditTransaccionDialog.xaml.cs">
       <DependentUpon>EditTransaccionDialog.xaml</DependentUpon>
@@ -193,6 +198,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\Controls\ExtendedDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Controls\Filter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

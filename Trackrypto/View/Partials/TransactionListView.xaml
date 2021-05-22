@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Trackrypto.View.Partials" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls="clr-namespace:Trackrypto.View.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -110,6 +110,8 @@
                             <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowPerdidas}">Pérdidas</CheckBox>
                             <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowRetiradas}">Retiradas</CheckBox>
                         </StackPanel>
+
+                        <controls:Filter DataContext="{Binding ExchangeFilterViewModel}"/>
                     </StackPanel>
                 </Expander>
 

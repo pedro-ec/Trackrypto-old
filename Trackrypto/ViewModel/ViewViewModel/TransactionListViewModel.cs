@@ -32,22 +32,39 @@ namespace Trackrypto.ViewModel.ViewViewModel
     {
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
 
-        public TipoFilterViewModel TipoFilterViewModel { get; }
+        public TipoFilterViewModel TipoFilterViewModel { get; private set; }
+        public FilterViewModel ExchangeFilterViewModel { get; private set; }
 
         #region constructor
         public TransactionListViewModel()
         {
             Transacciones = new RangeObservableCollection<TransaccionViewModel>();
 
-            TipoFilterViewModel = new TipoFilterViewModel();
+            InitializeFilters();
 
             WireCommands();
             RegisterMessenger();
             ConfigurePagination();
 
             Update();
+
+            ReplaceFilters();
         }
         #endregion
+
+        #region filters
+        private void InitializeFilters()
+        {
+            TipoFilterViewModel = new TipoFilterViewModel();
+            ExchangeFilterViewModel = new FilterViewModel("EXCHANGE");
+        }
+
+        private void ReplaceFilters()
+        {
+            ExchangeFilterViewModel.ReplaceFilters(TransaccionesRepository.GetExchanges());
+        }
+        #endregion
+
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
@@ -97,12 +114,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             int length = transacciones.Count();
             if (restore) SelectedPage = 1;
             SetPagination(length);
-            //if (length == 0)
-            //{
-            //    Transacciones.Clear();
-            //    return;
-            //}
-            if (SelectedPage > MaxPage) SelectedPage = MaxPage;
+
             int index = (SelectedPage - 1) * PageSize;
             int count = Math.Min(length - index, PageSize);
             transacciones = transacciones.GetRange(index, count);
@@ -113,7 +125,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private TransaccionesFilter GetFilters()
         {
             var filters = new TransaccionesFilter();
-            filters.Tipo = TipoFilterViewModel.GetFilter();
+            filters.Tipo = TipoFilterViewModel?.GetFilter();
+            filters.Exchange = ExchangeFilterViewModel?.GetFilter();
             return filters;
         }
 
@@ -251,6 +264,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
             var firstPage = Math.Max(1, SelectedPage - 5);
             var pagelist = Enumerable.Range(firstPage, Math.Min(MaxPage - SelectedPage + 6, 10));
             PageList.ReplaceRange(pagelist);
+
+            if (SelectedPage > MaxPage) SelectedPage = MaxPage;
         }
 
 

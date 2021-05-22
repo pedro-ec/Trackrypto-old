@@ -10,7 +10,7 @@ namespace Trackrypto.Helpers
     {
         public string[] Tipo { get; set; }
         public string[] Subtipo { get; }
-        public string[] Exchange { get; }
+        public string[] Exchange { get; set; }
         public decimal? Cantidad_Compra_Min { get; }
         public decimal? Cantidad_Compra_Max { get; }
         public string[] Divisa_Compra { get; }
