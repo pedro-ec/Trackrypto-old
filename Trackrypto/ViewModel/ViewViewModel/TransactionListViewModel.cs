@@ -34,6 +34,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         public TipoFilterViewModel TipoFilterViewModel { get; private set; }
         public FilterViewModel ExchangeFilterViewModel { get; private set; }
+        public FilterViewModel SimboloFilterViewModel { get; private set; }
 
         #region constructor
         public TransactionListViewModel()
@@ -47,8 +48,6 @@ namespace Trackrypto.ViewModel.ViewViewModel
             ConfigurePagination();
 
             Update();
-
-            ReplaceFilters();
         }
         #endregion
 
@@ -57,11 +56,15 @@ namespace Trackrypto.ViewModel.ViewViewModel
         {
             TipoFilterViewModel = new TipoFilterViewModel();
             ExchangeFilterViewModel = new FilterViewModel("EXCHANGE");
+            SimboloFilterViewModel = new FilterViewModel("SIMBOLO");
+            
+            ReplaceFilters();
         }
 
         private void ReplaceFilters()
         {
             ExchangeFilterViewModel.ReplaceFilters(TransaccionesRepository.GetExchanges());
+            SimboloFilterViewModel.ReplaceFilters(TransaccionesRepository.GetSymbols());
         }
         #endregion
 

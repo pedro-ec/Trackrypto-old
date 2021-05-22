@@ -112,6 +112,7 @@
                         </StackPanel>
 
                         <controls:Filter DataContext="{Binding ExchangeFilterViewModel}"/>
+                        <controls:Filter DataContext="{Binding SimboloFilterViewModel}"/>
                     </StackPanel>
                 </Expander>
 
