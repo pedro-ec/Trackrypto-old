@@ -7,9 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Vertical">
-        <TextBlock Text="{Binding Title}"/>
-        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowAll}">Mostrar Todo</CheckBox>
-        <ListBox ItemsSource="{Binding Filters}">
+        <TextBlock Text="{Binding Title}"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Margin="4"/>
+        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" 
+                  IsChecked="{Binding ShowAll}"
+                  Margin="8 4">
+            Mostrar Todo
+        </CheckBox>
+        <ListBox ItemsSource="{Binding Filters}"
+                 MaxHeight="200">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <CheckBox IsChecked="{Binding Selected}" Content="{Binding Value}"/>

@@ -13,20 +13,22 @@ namespace Trackrypto.Helpers
         public string[] Exchange { get; set; }
         public decimal? Cantidad_Compra_Min { get; }
         public decimal? Cantidad_Compra_Max { get; }
-        public string[] Divisa_Compra { get; }
+        //public string[] Divisa_Compra { get; }
         public decimal? Cantidad_Venta_Min { get; }
         public decimal? Cantidad_Venta_Max { get; }
-        public string[] Divisa_Venta { get; }
+        //public string[] Divisa_Venta { get; }
         public decimal? Valor_Eur_Min { get; }
         public decimal? Valor_Eur_Max { get; }
         public decimal? Cantidad_Comision_Min { get; }
         public decimal? Cantidad_Comision_Max { get; }
-        public string[] Divisa_Comision { get; }
+        //public string[] Divisa_Comision { get; }
         public string[] Comentarios { get; }
         public string[] Detalles { get; }
         public DateTime Fecha_Min { get; }
         public DateTime Fecha_Max { get; }
         public bool? Alerta { get; }
         public string[] Mensaje_Alerta { get; }
+
+        public string[] Simbolo { get; set; }
     }
 }

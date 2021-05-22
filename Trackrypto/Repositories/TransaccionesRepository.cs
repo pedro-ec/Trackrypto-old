@@ -25,6 +25,10 @@ namespace Trackrypto.Repositories
             transacciones
                 .Where(transaccion => filter.Tipo?.Contains(transaccion.Tipo) ?? true)
                 .Where(transaccion => filter.Exchange?.Contains(transaccion.Exchange) ?? true)
+                .Where(transaccion =>
+                    filter.Simbolo.Contains(transaccion.Divisa_Compra)
+                    || filter.Simbolo.Contains(transaccion.Divisa_Venta)
+                    || filter.Simbolo.Contains(transaccion.Divisa_Comision))
                 .ToArray();
 
         public static void InsertTransaccion(Transaccion transaccion) =>

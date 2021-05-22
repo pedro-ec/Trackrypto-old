@@ -130,6 +130,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             var filters = new TransaccionesFilter();
             filters.Tipo = TipoFilterViewModel?.GetFilter();
             filters.Exchange = ExchangeFilterViewModel?.GetFilter();
+            filters.Simbolo = SimboloFilterViewModel?.GetFilter();
             return filters;
         }
 
