@@ -74,6 +74,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         
         public ICommand ImportCdcAppCsvCommand { get; private set; }
         public ICommand ImportCdcExchangeCsvCommand { get; private set; }
+        public ICommand ImportCdcSyndicateCsvCommand { get; private set; }
         public ICommand ImportEtherscanEthereumCsvCommand { get; private set; }
         public ICommand ImportEtherscanTokenCsvCommand { get; private set; }
 
@@ -88,6 +89,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
             ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
             ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
+            ImportCdcSyndicateCsvCommand = new RelayCommand(() => ImportCdcSyndicateCsv());
             ImportEtherscanEthereumCsvCommand = new RelayCommand(() => ImportEtherscanEthereumCsv());
             ImportEtherscanTokenCsvCommand = new RelayCommand(() => ImportEtherscanTokenCsv());
 
@@ -170,6 +172,18 @@ namespace Trackrypto.ViewModel.ViewViewModel
             {
                 DirectoryInfo directory = new DirectoryInfo(folderBrowserDialog.SelectedPath);
                 SearchCdcExchangeFiles(directory);
+                Update();
+            }
+        }
+
+        private void ImportCdcSyndicateCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var newTransacciones = FileLoader.LoadCryptoComSyndicateCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();
             }
         }

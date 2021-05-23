@@ -63,7 +63,10 @@
                                     Command="{Binding ImportCdcAppCsvCommand}"/>
                             <Button Content="Crypto.com Exchange" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
-                                    Command="{Binding ImportCdcExchangeCsvCommand}"/>
+                                    Command="{Binding ImportCdcExchangeCsvCommand}"/>    
+                            <Button Content="Crypto.com Syndicate" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportCdcSyndicateCsvCommand}"/>
                             <Button Content="Etherscan (ETH)" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportEtherscanEthereumCsvCommand}"/>

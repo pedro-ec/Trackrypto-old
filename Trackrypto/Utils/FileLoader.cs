@@ -68,6 +68,26 @@ namespace Trackrypto.Utils
             return transacciones.ToArray();
         }
 
+        public static Transaccion[] LoadCryptoComSyndicateCsv(string filename)
+        {
+            var reader = new StreamReader(File.OpenRead(filename));
+            List<Transaccion> transacciones = new List<Transaccion>();
+            var _ = reader.ReadLine();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var transaccion = Model.Factories.CryptoComSyndicate.TransaccionFactory.GetTransaccion(line);
+                if (transaccion == null)
+                {
+                    // error
+                    Debug.WriteLine("transaccion 4 = null");
+                    continue;
+                }
+                transacciones.Add(transaccion);
+            }
+            return transacciones.ToArray();
+        }
+
         public static Transaccion[] LoadEtherscanEthereumCsv(string filename)
         {
             //string key = GetEtherscanKey(filename);
