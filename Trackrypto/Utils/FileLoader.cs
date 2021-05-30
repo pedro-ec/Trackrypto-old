@@ -136,5 +136,26 @@ namespace Trackrypto.Utils
             var keyMatch = rx.Match(filename);
             return keyMatch.Value;
         }
+
+
+        public static Transaccion[] LoadYoroiCsv(string filename)
+        {
+            var reader = new StreamReader(File.OpenRead(filename));
+            List<Transaccion> transacciones = new List<Transaccion>();
+            var _ = reader.ReadLine();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                var transaccion = Model.Factories.Yoroi.TransaccionFactory.GetTransaccion(line);
+                if (transaccion == null)
+                {
+                    // error
+                    Debug.WriteLine("transaccion 5 = null");
+                    continue;
+                }
+                transacciones.Add(transaccion);
+            }
+            return transacciones.ToArray();
+        }
     }
 }

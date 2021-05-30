@@ -72,7 +72,10 @@
                                     Command="{Binding ImportEtherscanEthereumCsvCommand}"/>
                             <Button Content="Etherscan (ERC20 Token)" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
-                                    Command="{Binding ImportEtherscanTokenCsvCommand}"/>
+                                    Command="{Binding ImportEtherscanTokenCsvCommand}"/>                            
+                            <Button Content="Yoroi" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportYoroiCsvCommand}"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
 

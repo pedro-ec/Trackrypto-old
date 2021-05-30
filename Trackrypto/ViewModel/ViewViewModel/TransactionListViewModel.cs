@@ -77,6 +77,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         public ICommand ImportCdcSyndicateCsvCommand { get; private set; }
         public ICommand ImportEtherscanEthereumCsvCommand { get; private set; }
         public ICommand ImportEtherscanTokenCsvCommand { get; private set; }
+        public ICommand ImportYoroiCsvCommand { get; private set; }
 
         public ICommand GoToFirstCommand { get; private set; }
         public ICommand GoToPreviousCommand { get; private set; }
@@ -92,6 +93,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             ImportCdcSyndicateCsvCommand = new RelayCommand(() => ImportCdcSyndicateCsv());
             ImportEtherscanEthereumCsvCommand = new RelayCommand(() => ImportEtherscanEthereumCsv());
             ImportEtherscanTokenCsvCommand = new RelayCommand(() => ImportEtherscanTokenCsv());
+            ImportYoroiCsvCommand = new RelayCommand(() => ImportYoroiCsv());
 
             GoToFirstCommand = new RelayCommand(() => GoToPage(1));
             GoToPreviousCommand = new RelayCommand(() => GoToPage(Math.Max((SelectedPage - 1), 1)));
@@ -221,6 +223,18 @@ namespace Trackrypto.ViewModel.ViewViewModel
             if (openFileDialog.ShowDialog() == true)
             {
                 var newTransacciones = FileLoader.LoadEtherscanTokenCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
+                Update();
+            }
+        }
+
+        private void ImportYoroiCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var newTransacciones = FileLoader.LoadYoroiCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
                 TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();

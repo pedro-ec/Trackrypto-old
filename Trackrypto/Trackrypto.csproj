@@ -80,6 +80,8 @@
     <Compile Include="Model\Factories\Etherscan\TokenCsvRow.cs" />
     <Compile Include="Model\Factories\Etherscan\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\SummaryFactory.cs" />
+    <Compile Include="Model\Factories\Yoroi\CsvRow.cs" />
+    <Compile Include="Model\Factories\Yoroi\TransaccionFactory.cs" />
     <Compile Include="Repositories\SummaryRepository.cs" />
     <Compile Include="Repositories\TransaccionesRepository.cs" />
     <Compile Include="Utils\FileLoader.cs" />
