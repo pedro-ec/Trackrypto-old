@@ -21,7 +21,11 @@ namespace Trackrypto.ViewModel.ViewViewModel
             if(transaccion == null)
             {
                 DialogTitle = "Nueva Transacción";
-                Transaccion = new TransaccionViewModel { Id = Guid.NewGuid() };
+                Transaccion = new TransaccionViewModel 
+                { 
+                    Id = Guid.NewGuid(),
+                    Fecha = DateTime.Today
+                };
             }
             else
             {
@@ -30,12 +34,5 @@ namespace Trackrypto.ViewModel.ViewViewModel
             }
         }
         #endregion
-
-        //#region commands
-        //private void WireCommands()
-        //{
-
-        //}
-        //#endregion
     }
 }

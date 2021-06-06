@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Trackrypto.View.Dialogs" xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:local="clr-namespace:Trackrypto.View.Dialogs" 
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
@@ -19,11 +20,24 @@
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:HintAssist.Hint="Lugar"/>
             
-            <TextBox Width="64" 
+            <!--<TextBox Width="64" 
                      Margin="16 0"
                      Text="{Binding Transaccion.Tipo}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     materialDesign:HintAssist.Hint="Tipo"/>
+                     materialDesign:HintAssist.Hint="Tipo"/>-->
+            <ComboBox Width="72" 
+                      Margin="16 0"
+                      VerticalAlignment="Bottom"
+                      SelectedValuePath="Tag"
+                      SelectedValue="{Binding Transaccion.Tipo}"
+                      materialDesign:HintAssist.Hint="Tipo">
+                <ComboBoxItem Content="Depósito" Tag="deposito"/>
+                <ComboBoxItem Content="Ingreso" Tag="ingreso"/>
+                <ComboBoxItem Content="Operación" Tag="operacion"/>
+                <ComboBoxItem Content="Pérdida" Tag="perdida"/>
+                <ComboBoxItem Content="Retirada" Tag="retirada"/>
+            </ComboBox>
+
             
             <TextBox Width="64" 
                      Margin="16 0"
@@ -37,6 +51,13 @@
                         materialDesign:HintAssist.Hint="Fecha"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                         SelectedDate="{Binding Transaccion.Fecha}"/>
+
+            <materialDesign:TimePicker Width="100"
+                                       Margin="0"
+                                       VerticalAlignment="Bottom"
+                                       materialDesign:HintAssist.Hint="Hora"
+                                       Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                       SelectedTime="{Binding Transaccion.Fecha}"/>
         </StackPanel>
         
             <StackPanel Orientation="Horizontal" Margin="32 16">
@@ -105,7 +126,7 @@
                     Margin="8" 
                     Style="{StaticResource MaterialDesignFlatButton}">
                 <Button.CommandParameter>
-                    <system:Boolean>False</system:Boolean>
+                    <system:Boolean></system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
