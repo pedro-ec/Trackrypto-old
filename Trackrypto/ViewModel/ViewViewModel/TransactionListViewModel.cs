@@ -31,6 +31,16 @@ namespace Trackrypto.ViewModel.ViewViewModel
     public class TransactionListViewModel : ViewModelBase, IPageViewModel
     {
         public RangeObservableCollection<TransaccionViewModel> Transacciones { get; set; }
+        private TransaccionViewModel selectedTransaccion;
+        public TransaccionViewModel SelectedTransaccion
+        {
+            get => selectedTransaccion;
+            set
+            {
+                selectedTransaccion = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public TipoFilterViewModel TipoFilterViewModel { get; private set; }
         public FilterViewModel ExchangeFilterViewModel { get; private set; }
@@ -71,6 +81,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         #region commands
         public ICommand AddTransaccionCommand { get; private set; }
+        public ICommand EditTransaccionCommand { get; private set; }
         
         public ICommand ImportCdcAppCsvCommand { get; private set; }
         public ICommand ImportCdcExchangeCsvCommand { get; private set; }
@@ -88,6 +99,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private void WireCommands()
         {
             AddTransaccionCommand = new RelayCommand(() => AddTransaccion());
+            EditTransaccionCommand = new RelayCommand(() => EditTransaccion());
 
             ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
             ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
@@ -149,6 +161,23 @@ namespace Trackrypto.ViewModel.ViewViewModel
                 (s, e) =>
                 {
                     if ((bool)e.Parameter == false) return;
+                    Transacciones.Add(context.Transaccion);
+                    Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
+                    TransaccionesRepository.InsertTransaccion(transaccion);
+                });
+        }
+
+        private void EditTransaccion()
+        {
+            var context = new EditTransaccionDialogViewModel((TransaccionViewModel)SelectedTransaccion.Clone());
+            var view = new AddTransaccionDialog { DataContext = context };
+
+            DialogHost.Show(view, "RootDialog", null,
+                (s, e) =>
+                {
+                    if ((bool)e.Parameter == false) return;
+                    TransaccionesRepository.DeleteTransaccion(SelectedTransaccion.Id);
+                    Transacciones.Remove(SelectedTransaccion);
                     Transacciones.Add(context.Transaccion);
                     Transaccion transaccion = context.Transaccion.Adapt<Transaccion>();
                     TransaccionesRepository.InsertTransaccion(transaccion);

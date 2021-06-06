@@ -11,7 +11,7 @@ using Trackrypto.ViewModel.Messenger;
 
 namespace Trackrypto.ViewModel.EntityViewModel
 {
-    public class TransaccionViewModel
+    public class TransaccionViewModel : ICloneable
     {
         public Guid Id { get; set; }
         public string Tipo { get; set; }
@@ -51,6 +51,11 @@ namespace Trackrypto.ViewModel.EntityViewModel
             TransaccionesRepository.DeleteTransaccion(this.Id);
             var msg = new UpdateMessage() { Restore = false };
             GalaSoft.MvvmLight.Messaging.Messenger.Default.Send(msg);
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 

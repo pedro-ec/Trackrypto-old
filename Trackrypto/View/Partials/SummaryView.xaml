@@ -42,12 +42,12 @@
                             <StackPanel>
                                 <TextBlock Margin="16 16 12 8"
                                            FontSize="16"
-                                           Text="hola"/>
+                                           Text="{Binding Name}"/>
 
-                                <ListBox ItemsSource="{Binding Coins}">
+                                <ListBox ItemsSource="{Binding Coins}" >
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" >
+                                            <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Symbol}" 
                                                            Style="{StaticResource MaterialDesignBody1TextBlock}"
                                                            VerticalAlignment="Center"
