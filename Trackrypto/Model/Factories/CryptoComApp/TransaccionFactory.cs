@@ -7,13 +7,6 @@ using Trackrypto.Model.Entities;
 
 namespace Trackrypto.Model.Factories.CryptoComApp
 {
-    //class KindConverter
-    //{
-    //    public string Tipo { get; }
-    //    public bool Alerta { get; }
-    //    public string Mensaje_Alerta { get; }
-    //}
-    
     public static class TransaccionFactory
     {
         private static readonly string[] depositos =
@@ -24,6 +17,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
         private static readonly string[] ingresos = 
             {
             "referral_gift",
+            "referral_bonus",
             "crypto_earn_interest_paid",
             "transfer_cashback",
             "dust_conversion_credited",
