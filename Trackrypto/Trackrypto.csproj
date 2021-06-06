@@ -74,6 +74,8 @@
     <Compile Include="Model\Factories\CryptoComExchange\SoftStakingCsvRow.cs" />
     <Compile Include="Model\Factories\CryptoComExchange\SpotWalletCsvRow.cs" />
     <Compile Include="Model\Factories\CryptoComExchange\StakeCsvRow.cs" />
+    <Compile Include="Model\Factories\CryptoComSupercharger\CsvRow.cs" />
+    <Compile Include="Model\Factories\CryptoComSupercharger\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComSyndicate\CsvRow.cs" />
     <Compile Include="Model\Factories\CryptoComSyndicate\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\Etherscan\EthereumCsvRow.cs" />

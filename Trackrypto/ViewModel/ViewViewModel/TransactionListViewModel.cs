@@ -75,6 +75,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         public ICommand ImportCdcAppCsvCommand { get; private set; }
         public ICommand ImportCdcExchangeCsvCommand { get; private set; }
         public ICommand ImportCdcSyndicateCsvCommand { get; private set; }
+        public ICommand ImportCdcSuperchargerCsvCommand { get; private set; }
         public ICommand ImportEtherscanEthereumCsvCommand { get; private set; }
         public ICommand ImportEtherscanTokenCsvCommand { get; private set; }
         public ICommand ImportYoroiCsvCommand { get; private set; }
@@ -91,6 +92,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
             ImportCdcAppCsvCommand = new RelayCommand(() => ImportCdcAppCsv());
             ImportCdcExchangeCsvCommand = new RelayCommand(() => ImportCdcExchangeCsv());
             ImportCdcSyndicateCsvCommand = new RelayCommand(() => ImportCdcSyndicateCsv());
+            ImportCdcSuperchargerCsvCommand = new RelayCommand(() => ImportCdcSuperchargerCsv());
             ImportEtherscanEthereumCsvCommand = new RelayCommand(() => ImportEtherscanEthereumCsv());
             ImportEtherscanTokenCsvCommand = new RelayCommand(() => ImportEtherscanTokenCsv());
             ImportYoroiCsvCommand = new RelayCommand(() => ImportYoroiCsv());
@@ -184,6 +186,18 @@ namespace Trackrypto.ViewModel.ViewViewModel
             if (openFileDialog.ShowDialog() == true)
             {
                 var newTransacciones = FileLoader.LoadCryptoComSyndicateCsv(openFileDialog.FileName);
+                // Añadir diálogo de revisión
+                TransaccionesRepository.InsertTransacciones(newTransacciones);
+                Update();
+            }
+        }
+
+        private void ImportCdcSuperchargerCsv()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "CSV (*.csv) | *.csv" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                var newTransacciones = FileLoader.LoadCdcSuperchargerCsv(openFileDialog.FileName);
                 // Añadir diálogo de revisión
                 TransaccionesRepository.InsertTransacciones(newTransacciones);
                 Update();

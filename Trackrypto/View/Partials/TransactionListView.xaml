@@ -67,6 +67,9 @@
                             <Button Content="Crypto.com Syndicate" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportCdcSyndicateCsvCommand}"/>
+                            <Button Content="Crypto.com Supercharger" 
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding ImportCdcSuperchargerCsvCommand}"/>
                             <Button Content="Etherscan (ETH)" 
                                     Style="{StaticResource MaterialDesignFlatButton}"
                                     Command="{Binding ImportEtherscanEthereumCsvCommand}"/>
