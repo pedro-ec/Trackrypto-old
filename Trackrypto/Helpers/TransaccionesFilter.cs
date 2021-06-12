@@ -26,7 +26,7 @@ namespace Trackrypto.Helpers
         public string[] Detalles { get; }
         public DateTime Fecha_Min { get; }
         public DateTime Fecha_Max { get; }
-        public bool? Alerta { get; }
+        public bool Alerta { get; set; }
         public string[] Mensaje_Alerta { get; }
 
         public string[] Simbolo { get; set; }

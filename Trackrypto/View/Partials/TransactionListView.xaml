@@ -111,6 +111,7 @@
                           HorizontalAlignment="Stretch"
                           Header="Filtros">
                     <StackPanel Orientation="Horizontal" Margin="24,8,24,16">
+                        <!--<controls:Filter DataContext="{Binding AlertaFilterViewModel}"/>-->
                         <controls:Filter DataContext="{Binding TipoFilterViewModel}"/>
                         <controls:Filter DataContext="{Binding SubtipoFilterViewModel}"/>
                         <controls:Filter DataContext="{Binding ExchangeFilterViewModel}"/>
@@ -134,6 +135,36 @@
                         
                         <ListView.View>
                             <GridView>
+                                <GridViewColumn Width="96">
+                                    <GridViewColumn.Header>
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                                      IsChecked="{Binding AlertaFilter}"
+                                                      Background="Red">
+                                            <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                                <SolidColorBrush Color="DarkRed" />
+                                            </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                            <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                                <SolidColorBrush Color="Red" />
+                                            </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                        </ToggleButton>
+                                    </GridViewColumn.Header>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<CheckBox IsChecked="{Binding Alerta}" />-->
+                                            <ToggleButton IsChecked="{Binding Alerta}" 
+                                                          Style="{StaticResource MaterialDesignActionToggleButton}"
+                                                          Background="Transparent"
+                                                          IsManipulationEnabled="False">
+                                                <ToggleButton.Content>
+                                                    <materialDesign:PackIcon Kind="CheckCircleOutline" Foreground="Green"/>
+                                                </ToggleButton.Content>
+                                                <materialDesign:ToggleButtonAssist.OnContent>
+                                                    <materialDesign:PackIcon Kind="AlertCircleOutline" Foreground="Red"/>
+                                                </materialDesign:ToggleButtonAssist.OnContent>
+                                            </ToggleButton>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Tipo" Width="80" DisplayMemberBinding="{Binding Tipo}"/>
                                 <GridViewColumn Header="Subtipo" Width="100" DisplayMemberBinding="{Binding Subtipo}"/>
                                 <GridViewColumn Header="Exchange" Width="160" DisplayMemberBinding="{Binding Exchange}"/>

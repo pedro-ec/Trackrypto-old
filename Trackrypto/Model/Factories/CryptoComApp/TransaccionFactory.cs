@@ -66,7 +66,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             if (retiradas.Contains(row.TransactionKind)) return CreateRetirada(row);
             if (otros.Contains(row.TransactionKind)) return CreateOtro(row);
 
-            return null;
+            return CreateDefault(row, line);
         }
 
         private static Transaccion CreateDeposito(CsvRow row)
@@ -133,6 +133,18 @@ namespace Trackrypto.Model.Factories.CryptoComApp
                 transaccion.Alerta = true;
                 transaccion.Mensaje_Alerta = "Comprobar";
             }
+
+
+            return transaccion;
+        }
+
+        private static Transaccion CreateDefault(CsvRow row, string line)
+        {
+            Transaccion transaccion = DefaultTransaccion(row);
+
+            transaccion.Alerta = true;
+            transaccion.Mensaje_Alerta = line;
+            
 
 
             return transaccion;

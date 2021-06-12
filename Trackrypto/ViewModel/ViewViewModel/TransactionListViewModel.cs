@@ -42,10 +42,6 @@ namespace Trackrypto.ViewModel.ViewViewModel
             }
         }
 
-        public FilterViewModel TipoFilterViewModel { get; private set; }
-        public FilterViewModel SubtipoFilterViewModel { get; private set; }
-        public FilterViewModel ExchangeFilterViewModel { get; private set; }
-        public FilterViewModel SimboloFilterViewModel { get; private set; }
 
         #region constructor
         public TransactionListViewModel()
@@ -63,6 +59,21 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #endregion
 
         #region filters
+        private bool alertaFilter;
+        public bool AlertaFilter 
+        {
+            get => alertaFilter;
+            set
+            {
+                alertaFilter = value;
+                Update();
+            }
+        }
+        public FilterViewModel TipoFilterViewModel { get; private set; }
+        public FilterViewModel SubtipoFilterViewModel { get; private set; }
+        public FilterViewModel ExchangeFilterViewModel { get; private set; }
+        public FilterViewModel SimboloFilterViewModel { get; private set; }
+
         private void InitializeFilters()
         {
             TipoFilterViewModel = new FilterViewModel("TIPO");
@@ -75,6 +86,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         private void ReplaceFilters()
         {
+            alertaFilter = false;
             TipoFilterViewModel.ReplaceFilters(TransaccionesRepository.GetTipos());
             SubtipoFilterViewModel.ReplaceFilters(TransaccionesRepository.GetSubtipos());
             ExchangeFilterViewModel.ReplaceFilters(TransaccionesRepository.GetExchanges());
@@ -150,6 +162,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private TransaccionesFilter GetFilters()
         {
             var filters = new TransaccionesFilter();
+            filters.Alerta = AlertaFilter;
             filters.Tipo = TipoFilterViewModel?.GetFilter();
             filters.Subtipo = SubtipoFilterViewModel?.GetFilter();
             filters.Exchange = ExchangeFilterViewModel?.GetFilter();

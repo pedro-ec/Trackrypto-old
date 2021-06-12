@@ -30,6 +30,7 @@ namespace Trackrypto.Repositories
                     filter.Simbolo.Contains(transaccion.Divisa_Compra)
                     || filter.Simbolo.Contains(transaccion.Divisa_Venta)
                     || filter.Simbolo.Contains(transaccion.Divisa_Comision))
+                .Where(transaccion => !filter.Alerta || transaccion.Alerta)
                 .ToArray();
 
         public static void InsertTransaccion(Transaccion transaccion) =>
