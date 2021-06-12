@@ -42,7 +42,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
             }
         }
 
-        public TipoFilterViewModel TipoFilterViewModel { get; private set; }
+        public FilterViewModel TipoFilterViewModel { get; private set; }
+        public FilterViewModel SubtipoFilterViewModel { get; private set; }
         public FilterViewModel ExchangeFilterViewModel { get; private set; }
         public FilterViewModel SimboloFilterViewModel { get; private set; }
 
@@ -64,7 +65,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
         #region filters
         private void InitializeFilters()
         {
-            TipoFilterViewModel = new TipoFilterViewModel();
+            TipoFilterViewModel = new FilterViewModel("TIPO");
+            SubtipoFilterViewModel = new FilterViewModel("SUBTIPO");
             ExchangeFilterViewModel = new FilterViewModel("EXCHANGE");
             SimboloFilterViewModel = new FilterViewModel("SIMBOLO");
             
@@ -73,6 +75,8 @@ namespace Trackrypto.ViewModel.ViewViewModel
 
         private void ReplaceFilters()
         {
+            TipoFilterViewModel.ReplaceFilters(TransaccionesRepository.GetTipos());
+            SubtipoFilterViewModel.ReplaceFilters(TransaccionesRepository.GetSubtipos());
             ExchangeFilterViewModel.ReplaceFilters(TransaccionesRepository.GetExchanges());
             SimboloFilterViewModel.ReplaceFilters(TransaccionesRepository.GetSymbols());
         }
@@ -147,6 +151,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         {
             var filters = new TransaccionesFilter();
             filters.Tipo = TipoFilterViewModel?.GetFilter();
+            filters.Subtipo = SubtipoFilterViewModel?.GetFilter();
             filters.Exchange = ExchangeFilterViewModel?.GetFilter();
             filters.Simbolo = SimboloFilterViewModel?.GetFilter();
             return filters;
@@ -325,7 +330,7 @@ namespace Trackrypto.ViewModel.ViewViewModel
         private void ConfigurePagination()
         {
             SelectedPage = 1;
-            PageSize = 10;
+            PageSize = 50;
 
             PageList = new RangeObservableCollection<int>();
         }

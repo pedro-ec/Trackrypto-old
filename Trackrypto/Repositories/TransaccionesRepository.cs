@@ -24,6 +24,7 @@ namespace Trackrypto.Repositories
         public static Transaccion[] GetTransacciones(TransaccionesFilter filter) =>
             transacciones
                 .Where(transaccion => filter.Tipo?.Contains(transaccion.Tipo) ?? true)
+                .Where(transaccion => filter.Subtipo?.Contains(transaccion.Subtipo) ?? true)
                 .Where(transaccion => filter.Exchange?.Contains(transaccion.Exchange) ?? true)
                 .Where(transaccion =>
                     filter.Simbolo.Contains(transaccion.Divisa_Compra)
@@ -45,14 +46,32 @@ namespace Trackrypto.Repositories
         #endregion
 
 
+        #region subtipos
+        public static string[] GetTipos() =>
+            transacciones
+            .Select(transaccion => transaccion.Tipo)
+            .Distinct()
+            .OrderBy(value => value)
+            .ToArray();
+        #endregion
+
+        #region subtipos
+        public static string[] GetSubtipos() =>
+            transacciones
+            .Select(transaccion => transaccion.Subtipo)
+            .Distinct()
+            .OrderBy(value => value)
+            .ToArray();
+        #endregion
+
         #region exchanges
         public static string[] GetExchanges() =>
             transacciones
             .Select(transaccion => transaccion.Exchange)
             .Distinct()
+            .OrderBy(value => value)
             .ToArray();
         #endregion
-
 
         #region Symbols
         public static string[] GetSymbols() =>
@@ -65,6 +84,7 @@ namespace Trackrypto.Repositories
                 transacciones
                 .Select(transaccion => transaccion.Divisa_Comision))
             .Distinct()
+            .OrderBy(value => value)
             .ToArray();
         #endregion
     }

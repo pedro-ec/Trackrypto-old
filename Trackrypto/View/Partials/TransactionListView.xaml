@@ -111,16 +111,8 @@
                           HorizontalAlignment="Stretch"
                           Header="Filtros">
                     <StackPanel Orientation="Horizontal" Margin="24,8,24,16">
-                        <StackPanel Orientation="Vertical" DataContext="{Binding TipoFilterViewModel}">
-                            <TextBlock Text="TIPO"/>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowAll}">Mostrar Todo</CheckBox>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowDepositos}">Depósitos</CheckBox>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowIngresos}">Ingresos</CheckBox>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowOperaciones}">Operaciones</CheckBox>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowPerdidas}">Pérdidas</CheckBox>
-                            <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="{Binding ShowRetiradas}">Retiradas</CheckBox>
-                        </StackPanel>
-
+                        <controls:Filter DataContext="{Binding TipoFilterViewModel}"/>
+                        <controls:Filter DataContext="{Binding SubtipoFilterViewModel}"/>
                         <controls:Filter DataContext="{Binding ExchangeFilterViewModel}"/>
                         <controls:Filter DataContext="{Binding SimboloFilterViewModel}"/>
                     </StackPanel>

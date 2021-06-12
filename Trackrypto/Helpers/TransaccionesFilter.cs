@@ -9,7 +9,7 @@ namespace Trackrypto.Helpers
     public class TransaccionesFilter
     {
         public string[] Tipo { get; set; }
-        public string[] Subtipo { get; }
+        public string[] Subtipo { get; set; }
         public string[] Exchange { get; set; }
         public decimal? Cantidad_Compra_Min { get; }
         public decimal? Cantidad_Compra_Max { get; }
