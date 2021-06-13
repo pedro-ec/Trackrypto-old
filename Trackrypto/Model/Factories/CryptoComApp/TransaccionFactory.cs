@@ -11,7 +11,8 @@ namespace Trackrypto.Model.Factories.CryptoComApp
     {
         private static readonly string[] depositos =
         {
-            "exchange_to_crypto_transfer"
+            "exchange_to_crypto_transfer",
+            "crypto_deposit"
         };
 
         private static readonly string[] ingresos = 
@@ -22,8 +23,11 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "transfer_cashback",
             "dust_conversion_credited",
             "staking_reward",
+            "mco_stake_reward",
             "referral_card_cashback",
             "reimbursement",
+            "admin_wallet_credited",
+            "dynamic_coin_swap_credited",
             "dynamic_coin_swap_bonus_exchange_deposit"
         };
 
@@ -39,7 +43,9 @@ namespace Trackrypto.Model.Factories.CryptoComApp
         private static readonly string[] perdidas =
         {
             "dust_conversion_debited",
-            "dynamic_coin_swap_debited"
+            "dynamic_coin_swap_debited",
+            "admin_wallet_debited",
+            "card_cashback_reverted"
         };
 
         private static readonly string[] retiradas =
@@ -50,9 +56,24 @@ namespace Trackrypto.Model.Factories.CryptoComApp
 
         private static readonly string[] otros =
         {
-            "crypto_transfer"
+            "crypto_transfer",
+            "red_envelope_transfer"
         };
 
+        private static readonly string[] ignore =
+        {
+            "crypto_earn_program_created",
+            "crypto_earn_program_withdrawn",
+            "supercharger_deposit",
+            "supercharger_withdrawal",
+            "lockup_swap_debited",
+            "lockup_swap_credited",
+            "crypto_wallet_swap_credited",
+            "crypto_wallet_swap_debited",
+            "lockup_swap_rebate",
+            "lockup_lock",
+            "lockup_upgrade"
+        };
 
         public static Transaccion GetTransaccion(string line)
         {
@@ -65,6 +86,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             if (perdidas.Contains(row.TransactionKind)) return CreatePerdida(row);
             if (retiradas.Contains(row.TransactionKind)) return CreateRetirada(row);
             if (otros.Contains(row.TransactionKind)) return CreateOtro(row);
+            if (ignore.Contains(row.TransactionKind)) return null;
 
             return CreateDefault(row, line);
         }
@@ -156,8 +178,8 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             {
                 Id = Guid.NewGuid(),
                 Exchange = "crypto.com_app",
-                Comentarios = row.TransactionDescription,
-                Detalles = row.TransactionKind,
+                Detalles = row.TransactionDescription,
+                Subtipo = row.TransactionKind,
                 Fecha = row.TimestampUTC,
                 Alerta = false,
                 Mensaje_Alerta = ""
@@ -170,17 +192,17 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             if (row.Amount > 0)
             {
                 transaccion.Cantidad_Compra = row.Amount;
-                transaccion.Divisa_Compra = row.Currency;
+                transaccion.Divisa_Compra = row.Currency.Trim(' ');
             }
 
             if (row.Amount < 0)
             {
                 transaccion.Cantidad_Venta = -row.Amount;
-                transaccion.Divisa_Venta = row.Currency;
+                transaccion.Divisa_Venta = row.Currency.Trim(' ');
                 if (!string.IsNullOrWhiteSpace(row.ToCurrency))
                 {
                     transaccion.Cantidad_Compra = row.ToAmount;
-                    transaccion.Divisa_Compra = row.ToCurrency;
+                    transaccion.Divisa_Compra = row.ToCurrency.Trim(' ');
                 }
             }
 
