@@ -34,7 +34,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
                 ToAmount = string.IsNullOrWhiteSpace(values[5]) ? 0 : Convert.ToDecimal(values[5], CultureInfo.InvariantCulture),
                 NativeCurrency = values[6],
                 NativeAmount = string.IsNullOrWhiteSpace(values[7]) ? 0 : Convert.ToDecimal(values[7], CultureInfo.InvariantCulture),
-                NativeAmountUSD = Convert.ToDecimal(values[8]),
+                NativeAmountUSD = Convert.ToDecimal(values[8], CultureInfo.InvariantCulture),
                 TransactionKind = values[9]
             };
             return csvRow;

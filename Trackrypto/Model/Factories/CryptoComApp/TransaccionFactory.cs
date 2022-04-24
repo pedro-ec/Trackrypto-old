@@ -37,7 +37,9 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "crypto_exchange",
             "crypto_viban_exchange",
             "viban_purchase",
-            "card_top_up"
+            "card_top_up",
+            "crypto_payment",
+            "crypto_payment_refund"
         };
 
         private static readonly string[] perdidas =
@@ -187,13 +189,23 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             };
 
             if (row.NativeAmount != null)
+            {
                 if (string.Equals(row.NativeCurrency, "EUR"))
                     transaccion.Valor_Eur = row.NativeAmount;
+                else
+                {
+                    transaccion.Alerta = true;
+                    if (!string.IsNullOrWhiteSpace(transaccion.Mensaje_Alerta))
+                        transaccion.Mensaje_Alerta += "\n";
+                    transaccion.Mensaje_Alerta += ("Native Amount: " + row.NativeAmount + " " + row.NativeCurrency);
+                }
+            }
 
             if (row.Amount > 0)
             {
                 transaccion.Cantidad_Compra = row.Amount;
                 transaccion.Divisa_Compra = row.Currency.Trim(' ');
+                return transaccion;
             }
 
             if (row.Amount < 0)
@@ -205,8 +217,13 @@ namespace Trackrypto.Model.Factories.CryptoComApp
                     transaccion.Cantidad_Compra = row.ToAmount;
                     transaccion.Divisa_Compra = row.ToCurrency.Trim(' ');
                 }
+                return transaccion;
             }
 
+            transaccion.Alerta = true;
+            if (!string.IsNullOrWhiteSpace(transaccion.Mensaje_Alerta))
+                transaccion.Mensaje_Alerta += "\n";
+            transaccion.Mensaje_Alerta += "Empty Amount";
             return transaccion;
         }
     }
