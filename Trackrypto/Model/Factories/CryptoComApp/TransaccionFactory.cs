@@ -72,6 +72,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "crypto_wallet_swap_debited",
             "lockup_swap_rebate",
             "lockup_lock",
+            "lockup_unlock",
             "lockup_upgrade"
         };
 
