@@ -16,7 +16,7 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
         public string RebateCurrency;
         public decimal? RebateAmount;
         public string RebateDestination;
-        public int? Status;
+        public string Status;
 
         public static ReembolsosCsvRow FromCsv(string csvLine)
         {
@@ -31,7 +31,7 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
                 RebateCurrency = values[4],
                 RebateAmount = Convert.ToDecimal(values[5], CultureInfo.InvariantCulture),
                 RebateDestination = values[6],
-                Status = Convert.ToInt32(values[7])
+                Status = values[7]
             };
             return csvRow;
         }

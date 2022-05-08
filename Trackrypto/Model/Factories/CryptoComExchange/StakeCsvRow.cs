@@ -15,7 +15,7 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
         public string Apr;
         public string InterestCurrency;
         public decimal? InterestAmount;
-        public int? Status;
+        public string Status;
 
         public static StakeCsvRow FromCsv(string csvLine)
         {
@@ -29,7 +29,7 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
                 Apr = values[3],
                 InterestCurrency = values[4],
                 InterestAmount = Convert.ToDecimal(values[5], CultureInfo.InvariantCulture),
-                Status = Convert.ToInt32(values[6])
+                Status = values[6]
             };
             return csvRow;
         }

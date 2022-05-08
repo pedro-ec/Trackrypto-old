@@ -9,15 +9,14 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
 {
     public class SpotWalletCsvRow
     {
-        public string AccountType;
         public long OrderId;
         public long TradeId;
         public DateTime TimestampUTC;
         public string Symbol;
         public string Side;
-        public string LiquidityIndicator;
         public decimal? TradedPrice;
         public decimal? TradedQuantity;
+        public decimal? Volume;
         public decimal? Fee;
         public string FeeCurrency;
 
@@ -27,18 +26,16 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
 
             SpotWalletCsvRow csvRow = new SpotWalletCsvRow
             {
-                AccountType = values[0],
-                OrderId = Convert.ToInt64(values[1]),
-                TradeId = Convert.ToInt64(values[2]),
-                TimestampUTC = Convert.ToDateTime(values[3]),
-                Symbol = values[4],
-                Side = values[5],
-                LiquidityIndicator = values[6],
-                TradedPrice = Convert.ToDecimal(values[7], CultureInfo.InvariantCulture),
-                TradedQuantity = Convert.ToDecimal(values[8], CultureInfo.InvariantCulture),
-                Fee = Convert.ToDecimal(values[9], CultureInfo.InvariantCulture),
-                FeeCurrency = values[10],
-         
+                OrderId = Convert.ToInt64(values[0]),
+                TradeId = Convert.ToInt64(values[1]),
+                TimestampUTC = Convert.ToDateTime(values[2]),
+                Symbol = values[3],
+                Side = values[4],
+                TradedPrice = Convert.ToDecimal(values[5], CultureInfo.InvariantCulture),
+                TradedQuantity = Convert.ToDecimal(values[6], CultureInfo.InvariantCulture),
+                Volume = Convert.ToDecimal(values[7], CultureInfo.InvariantCulture),
+                Fee = Convert.ToDecimal(values[8], CultureInfo.InvariantCulture),
+                FeeCurrency = values[9]
             };
             return csvRow;
         }
