@@ -39,7 +39,8 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "viban_purchase",
             "card_top_up",
             "crypto_payment",
-            "crypto_payment_refund"
+            "crypto_payment_refund",
+            "nft_payout_credited"
         };
 
         private static readonly string[] perdidas =
@@ -75,7 +76,7 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "lockup_swap_rebate",
             "lockup_lock",
             "lockup_unlock",
-            "lockup_upgrade"
+            "lockup_upgrade",
         };
 
         public static Transaccion GetTransaccion(string line)
@@ -117,6 +118,12 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             Transaccion transaccion = DefaultTransaccion(row);
 
             transaccion.Tipo = "operacion";
+
+            if (string.Equals(row.TransactionKind, "nft_payout_credited"))
+            {
+                transaccion.Alerta = true;
+                transaccion.Mensaje_Alerta = "Añadir compra de los NFTs";
+            }
 
             return transaccion;
         }
