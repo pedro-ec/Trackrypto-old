@@ -68,6 +68,7 @@
     <Compile Include="Model\Factories\CryptoComApp\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComApp\CsvRow.cs" />
     <Compile Include="Model\Domain.cs" />
+    <Compile Include="Model\Factories\CryptoComExchange\CsvRow.cs" />
     <Compile Include="Model\Factories\CryptoComExchange\TransaccionFactory.cs" />
     <Compile Include="Model\Factories\CryptoComExchange\DepositosRetirosCsvRow.cs" />
     <Compile Include="Model\Factories\CryptoComExchange\ReembolsosCsvRow.cs" />

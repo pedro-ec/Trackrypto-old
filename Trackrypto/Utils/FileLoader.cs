@@ -34,29 +34,15 @@ namespace Trackrypto.Utils
         }
 
 
-        private static readonly Dictionary<string, Func<string, Transaccion>> CryptoComExchangeFactories = new Dictionary<string, Func<string, Transaccion>>()
+        public static Transaccion[] LoadCryptoComExchangeCsv(string filename)
         {
-            { "DEPOSIT.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetDeposito(filename) },
-            { "WITHDRAWAL.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetRetirada(filename) },
-            { "STAKE_INTEREST.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetStake(filename) },
-            { "TRADE_FEE_REBATE.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetReembolso(filename) },
-            { "SOFT_STAKE_INTEREST.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetSoftStaking(filename) },
-            { "SPOT_TRADE.csv", (filename) => Model.Factories.CryptoComExchange.TransaccionFactory.GetSpotTrade(filename) },
-        };
-
-        public static Transaccion[] LoadCryptoComExchangeCsv(string path, string filename)
-        {
-            Func<string, Transaccion> getTransaccion;
-            CryptoComExchangeFactories.TryGetValue(filename, out getTransaccion);
-            if (getTransaccion == null) return null;
-
-            var reader = new StreamReader(File.OpenRead(path));
+            var reader = new StreamReader(File.OpenRead(filename));
             List<Transaccion> transacciones = new List<Transaccion>();
             var _ = reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                var transaccion = getTransaccion(line);
+                var transaccion = Model.Factories.CryptoComExchange.TransaccionFactory.GetTransaccion(line);
                 if (transaccion == null)
                 {
                     // error

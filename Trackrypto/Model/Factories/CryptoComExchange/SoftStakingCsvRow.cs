@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Trackrypto.Model.Factories.CryptoComExchange
 {
+    [Obsolete("Desde 2023 solo hay un CSV", error: true)]
     public class SoftStakingCsvRow
     {
         public DateTime TimestampUTC;
