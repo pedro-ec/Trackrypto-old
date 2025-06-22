@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trackrypto.Model.Entities;
 
 namespace Trackrypto.Model.Factories.CryptoComExchange
@@ -19,10 +15,7 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
         }
 
 
-        private static Transaccion CreateDeposito(CsvRow row)
-        {
-            throw new NotImplementedException();
-        }
+        private static Transaccion CreateDeposito(CsvRow row) => throw new NotImplementedException();
 
 
         private static Transaccion CreateRetirada(CsvRow row)
@@ -45,16 +38,10 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
         }
 
 
-        private static Transaccion CreateStake(CsvRow row)
-        {
-            throw new NotImplementedException();
-        }
+        private static Transaccion CreateStake(CsvRow row) => throw new NotImplementedException();
 
 
-        private static Transaccion CreateReembolso(CsvRow row)
-        {
-        throw new NotImplementedException();
-        }
+        private static Transaccion CreateReembolso(CsvRow row) => throw new NotImplementedException();
 
 
         private static Transaccion CreateSoftStaking(CsvRow row)
@@ -76,9 +63,6 @@ namespace Trackrypto.Model.Factories.CryptoComExchange
         }
 
 
-        private static Transaccion CreateSpotTrade(CsvRow row)
-        {
-            throw new NotImplementedException();
-        }
+        private static Transaccion CreateSpotTrade(CsvRow row) => throw new NotImplementedException();
     }
 }

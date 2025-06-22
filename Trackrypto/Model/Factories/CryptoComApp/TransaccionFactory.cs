@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trackrypto.Model.Entities;
+using Ubiety.Dns.Core.Records;
 
 namespace Trackrypto.Model.Factories.CryptoComApp
 {
@@ -24,11 +25,13 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "dust_conversion_credited",
             "staking_reward",
             "mco_stake_reward",
+            "finance.lockup.dpos_compound_interest.crypto_wallet",
             "referral_card_cashback",
             "reimbursement",
             "admin_wallet_credited",
             "dynamic_coin_swap_credited",
-            "dynamic_coin_swap_bonus_exchange_deposit"
+            "dynamic_coin_swap_bonus_exchange_deposit",
+            "reward.loyalty_program.trading_rebate.crypto_wallet"
         };
 
         private static readonly string[] operaciones =
@@ -40,7 +43,10 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "card_top_up",
             "crypto_payment",
             "crypto_payment_refund",
-            "nft_payout_credited"
+            "nft_payout_credited",
+            "trading.crypto_purchase.twap.cash_account",
+            "trading.crypto_sale.twap.cash_account",
+            "trading.defi_purchase.cash_account"
         };
 
         private static readonly string[] perdidas =
@@ -77,6 +83,10 @@ namespace Trackrypto.Model.Factories.CryptoComApp
             "lockup_lock",
             "lockup_unlock",
             "lockup_upgrade",
+            "trading.limit_order.cash_account.sell_lock",
+            "trading.limit_order.cash_account.sell_unlock",
+            "finance.lockup.dpos_lock_upgrade.crypto_wallet",
+            "finance.lockup.dpos_lock.crypto_wallet"
         };
 
         public static Transaccion GetTransaccion(string line)
